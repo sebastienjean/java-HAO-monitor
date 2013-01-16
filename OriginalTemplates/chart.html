@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Highcharts Example</title>
+
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script type="text/javascript">
+var chart;
+$(document).ready(function() {
+	chart = new Highcharts.Chart({
+		chart: {
+			renderTo: 'container',
+			type: 'scatter'
+		},
+		title: {
+			text: 'TestChart'
+		},
+		subtitle: {
+			text: 'Subtitle...'
+		},
+		xAxis: {
+			type: 'datetime',
+		},
+		yAxis: {
+			title: {
+				text: 'value'
+			},
+			min: 0,
+			max: 255
+		},
+		tooltip: {
+			formatter: function() {
+					return '<b>'+ this.series.name +'</b><br/>'+
+					Highcharts.dateFormat('%H:%M:%S', this.x) +': '+ this.y;
+			}
+		},
+		series: [{
+			name: 'V1',
+			data: [
+<!-- @@V1@@ -->			
+			]
+		},
+		{
+			name: 'V2',
+			data: [
+<!-- @@V2@@ -->	
+			]
+		},
+		{
+			name: 'V3',
+			data: [
+<!-- @@V3@@ -->			
+			]
+		},
+		{
+			name: 'V4',
+			data: [
+<!-- @@V4@@ -->			
+			]
+		},
+		{
+			name: 'V5',
+			data: [
+<!-- @@V5@@ -->			
+			]
+		},
+		{
+			name: 'V6',
+			data: [
+<!-- @@V6@@ -->			
+			]
+		},	
+		{
+			name: 'V7',
+			data: [
+<!-- @@V7@@ -->			
+			]
+		},
+		{
+			name: 'V8',
+			data: [
+<!-- @@V8@@ -->			
+			]
+		},	
+		{
+			name: 'ALIM',
+			data: [
+<!-- @@ALIM@@ -->			
+			]
+		}]
+		
+	});
+});
+		</script>
+	</head>
+	<body>
+<script type="text/javascript" src="./js/highcharts.js"></script>
+<script type="text/javascript" src="./js/modules/exporting.js"></script>
+
+<div id="container" style="width: 800px; height: 400px; margin: 0 auto"></div>
+
+	</body>
+</html>
