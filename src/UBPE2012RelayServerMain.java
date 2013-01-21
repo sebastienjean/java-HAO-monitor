@@ -16,8 +16,14 @@ public class UBPE2012RelayServerMain
 	{	
 		// args[0] server's IP (for incoming frames)
 		// args[1] server's port (for incoming frames)
-
-		// TODO checking args, console usage
+		// args[2] output JSON file path
+		
+		if (args.length != 3)
+		{
+			System.err.println("Missing arguments, exiting...");
+			System.err.println("(expected IP and port for local binding)");
+			System.exit(1);
+		}
 		
 		System.out.println("Creating ubpe2012 JSON producer service ...");
 		UBPE2012JsonProducerDataEventListenerService runnableWebJsonListener = new UBPE2012JsonProducerDataEventListenerService(new File(args[2]), "UTF-8");
