@@ -8,9 +8,15 @@ import fr.iutvalence.ubpe.ubpecommons.services.JSonFilteredFilesProducerService;
 
 public class UBPE2012RelayServerMain
 {
-
 	/**
-	 * @param args
+	 * Application's main.
+	 * 
+	 * @param args command-line arguments<br/>
+	 * <ul>
+	 * <li> <tt>args[0]</tt> server's IP (for incoming frames)</li>
+	 * <li> <tt>args[1]</tt> server's port (for incoming frames)</li>
+	 * <li> <tt>args[2]</tt> output JSON file path</li>
+	 * </ul>
 	 */
 	public static void main(String[] args)
 	{	
