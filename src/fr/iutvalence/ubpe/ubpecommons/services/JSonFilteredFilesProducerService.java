@@ -11,7 +11,7 @@ import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Set;
+import java.util.Map;
 
 import org.json.JSONException;
 
@@ -21,32 +21,40 @@ import fr.iutvalence.ubpe.core.interfaces.Stoppable;
 
 public class JSonFilteredFilesProducerService implements Runnable, Stoppable
 {
-	private File jsonDir;
+	private File inputFilePathWithSuffix;
 	
-	private File globalFile;
-
+	private String charset;
+	
+	private File outputDir;
+	
+	private Map<String, int[]> filtersToGenerate;
+	
+	private String[] tokens;
+	
 	private boolean mustRun;
 
-	private Set<String> stationNames;
-	
-	
-	public final static String ANALOG_TEMP_TIME_GRAPH_FILENAME = "analogTempVersusTime.json";
-
-	public JSonFilteredFilesProducerService(File globalFilePath)
+	public JSonFilteredFilesProducerService(File inputFilePathWithSuffix, String charset, File outputDir, Map<String, int[]> filtersToGenerate, String[] tokens)
 	{		
-		this.globalFile = globalFilePath;
-		this.jsonDir = this.globalFile.getParentFile();
+		this.inputFilePathWithSuffix = inputFilePathWithSuffix;
+		this.charset = charset;
+		this.outputDir = outputDir;
+		this.filtersToGenerate = filtersToGenerate;
+		this.tokens = tokens;
 		this.mustRun = true;
-		this.stationNames = new HashSet<String>();
 	}
 
+	/**
+	 * @see fr.iutvalence.ubpe.core.interfaces.Stoppable#mustStop()
+	 */
 	@Override
 	public void mustStop()
 	{
 		this.mustRun = false;
-
 	}
 
+	/**
+	 * @see java.lang.Runnable#run()
+	 */
 	@Override
 	public void run()
 	{
@@ -65,11 +73,18 @@ public class JSonFilteredFilesProducerService implements Runnable, Stoppable
 
 	}
 
-	private void createTokenlessFile(File src, String destSuffix, String charset, String token) throws UnsupportedEncodingException, FileNotFoundException
+	/**
+	 * Internal method used to filter all tokens from a text file
+	 * @param outputFile output file path (with suffix)
+	 * @throws UnsupportedEncodingException if charset is not available
+	 * @throws FileNotFoundException if inputFile is not found
+	 */
+	private void createTokenlessFile(File outputFile) throws UnsupportedEncodingException, FileNotFoundException
 	{
-		BufferedReader in =  new BufferedReader(new InputStreamReader(new FileInputStream(src), charset));
-		String destPath = src.getAbsolutePath().substring(0, src.getAbsolutePath().lastIndexOf('.')) +destSuffix;
-		PrintStream out = new PrintStream(new FileOutputStream(destPath));
+		BufferedReader in =  new BufferedReader(new InputStreamReader(new FileInputStream(this.inputFilePathWithSuffix), this.charset));
+		//String destPath = inputFile.getAbsolutePath().substring(0, inputFile.getAbsolutePath().lastIndexOf('.')) +destSuffix;
+		PrintStream out = new PrintStream(new FileOutputStream(outputFile));
+		
 		while (true)
 		{
 			String line = null;
@@ -79,10 +94,16 @@ public class JSonFilteredFilesProducerService implements Runnable, Stoppable
 			}
 			catch (IOException e)
 			{			
+				// no use to do something special here, just let line remain null
 			}
 			if (line == null) break;
 			
-			if (!(line.trim().startsWith(token)))
+			boolean isTokenLine = false;
+			
+			for (String token:tokens)
+				if ((line.trim().startsWith(token))) isTokenLine = true;
+
+			if (!isTokenLine) 
 				out.println(line);
 		}
 		
@@ -93,20 +114,26 @@ public class JSonFilteredFilesProducerService implements Runnable, Stoppable
 		}
 		catch (IOException e)
 		{
-			// ignore it
+			// ignore failure on close operations
 		}
 	}
 	
+	/**
+	 * Internal method used to generate filtered files
+	 */
 	private void generateFilteredFiles()
 	{			
 		// generate AnalogTempsVersusTime.json
 		try
 		{
-			String originalPathWithoutSuffix = this.globalFile.getAbsolutePath().substring(0, this.globalFile.getAbsolutePath().lastIndexOf('.'));
+			String originalPathWithoutSuffix = this.inputFilePathWithSuffix.getAbsolutePath().substring(0, this.inputFilePathWithSuffix.getAbsolutePath().lastIndexOf('.'));
+			for (Map.Entry<String, int[]> entry: this.filtersToGenerate.entrySet())
+			{
+				this.createTokenlessFile(new File(this.outputDir, originalPathWithoutSuffix +".clean"));
+				ArrayFilter.jsonFilter(new File(this.outputDir,originalPathWithoutSuffix+".clean"), new File(this.outputDir, entry.getKey()), entry.getValue(), new HashMap<Integer, AffTransform>());
+			}
 			
-			// TODO charset and token as constructor param
-			this.createTokenlessFile(globalFile, ".clean", "UTF-8", "//@@EVENT@@//");
-			ArrayFilter.jsonFilter(new File(originalPathWithoutSuffix+".clean"), new File(this.jsonDir, "global_"+ANALOG_TEMP_TIME_GRAPH_FILENAME), new int[] {3, 14, 15}, new HashMap<Integer, AffTransform>());
+			//
 		}
 		catch (FileNotFoundException e)
 		{
