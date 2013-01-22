@@ -4,6 +4,11 @@ import fr.iutvalence.ubpe.core.interfaces.DataEvent;
 
 public class SystemOutDebugDataEventListenerService extends AbstractDataEventListenerService
 {
+	public SystemOutDebugDataEventListenerService(long period) 
+	{
+		super(period);
+	}
+
 	@Override
 	protected void onTakingEvent(DataEvent event)
 	{	

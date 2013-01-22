@@ -16,14 +16,16 @@ public class DispatcherDataEventListenerForwarderService extends AbstractDataEve
 
 	protected Map<String, MetadataField> readerMetadataFields;
 
-	public DispatcherDataEventListenerForwarderService()
+	public DispatcherDataEventListenerForwarderService(long period)
 	{
+		super(period);
 		this.listeners = new LinkedList<DataEventListener>();
 		this.readerMetadataFields = new HashMap<String, MetadataField>();
 	}
 
-	public DispatcherDataEventListenerForwarderService(Map<String, MetadataField> readerMetadataFields)
+	public DispatcherDataEventListenerForwarderService(long period, Map<String, MetadataField> readerMetadataFields)
 	{
+		super(period);
 		this.listeners = new LinkedList<DataEventListener>();
 		this.readerMetadataFields = readerMetadataFields;
 		if (readerMetadataFields == null)

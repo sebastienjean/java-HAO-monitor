@@ -20,6 +20,7 @@ public abstract class AbstractDataEventParserForwarderService extends AbstractSe
 
 	public AbstractDataEventParserForwarderService(Map<String, MetadataField> readerMetadataFields)
 	{
+		super(0);
 		this.listeners = new LinkedList<DataEventListener>();
 		this.readerMetadataFields = readerMetadataFields;
 		if (readerMetadataFields == null)
@@ -69,5 +70,4 @@ public abstract class AbstractDataEventParserForwarderService extends AbstractSe
 	{
 		this.listeners.remove(listener);		
 	}
-
 }

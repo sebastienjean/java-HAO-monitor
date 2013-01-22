@@ -29,9 +29,11 @@ public abstract class AbstractDataEventListenerService extends AbstractService i
 	
 	/**
 	 * Creating a <tt>AbstractDataEventListenerService</tt> instance, with default queue capacity.
+	 * @param period service period
 	 */
-	public AbstractDataEventListenerService()
+	public AbstractDataEventListenerService(long period)
 	{		
+		super(period);
 		this.eventsQueue = new ArrayBlockingQueue<DataEvent>(DEFAULT_QUEUE_CAPACITY);
 	}
 
