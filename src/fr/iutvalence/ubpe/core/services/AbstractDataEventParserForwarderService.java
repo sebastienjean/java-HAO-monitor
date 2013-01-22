@@ -11,27 +11,12 @@ import fr.iutvalence.ubpe.core.interfaces.DataEventForwarder;
 import fr.iutvalence.ubpe.core.interfaces.DataEventListener;
 import fr.iutvalence.ubpe.core.interfaces.DataEventParser;
 import fr.iutvalence.ubpe.core.interfaces.MetadataField;
-import fr.iutvalence.ubpe.core.interfaces.Stoppable;
 
-public abstract class AbstractDataEventParserForwarderService implements Runnable, Stoppable, DataEventParser, DataEventForwarder
+public abstract class AbstractDataEventParserForwarderService extends AbstractService implements DataEventParser, DataEventForwarder
 {
 	protected List<DataEventListener> listeners;
 
 	protected Map<String, MetadataField> readerMetadataFields;
-
-
-	// @Override
-	// public String getReaderName()
-	// {
-	// MetadataField found =
-	// this.readerMetadataFields.get("metadata.reader.name");
-	// if (found != null) return (String) found.getValue();
-	//
-	// return "<DataEventReader>";
-	// }
-
-	
-	protected volatile boolean mustRun;
 
 	public AbstractDataEventParserForwarderService(Map<String, MetadataField> readerMetadataFields)
 	{
@@ -44,11 +29,9 @@ public abstract class AbstractDataEventParserForwarderService implements Runnabl
 
 	public abstract DataEvent parse();
 
-	public void mustStop()
-	{
-		this.mustRun = false;
-	}
-
+	/**
+	 * @see fr.iutvalence.ubpe.core.services.AbstractService#run()
+	 */
 	public void run()
 	{
 		while (this.mustRun)
@@ -69,12 +52,18 @@ public abstract class AbstractDataEventParserForwarderService implements Runnabl
 		}		
 	}
 	
+	/**
+	 * @see fr.iutvalence.ubpe.core.interfaces.DataEventForwarder#registerDataEventListener(fr.iutvalence.ubpe.core.interfaces.DataEventListener)
+	 */
 	@Override
 	public void registerDataEventListener(DataEventListener listener)
 	{
 		this.listeners.add(listener);
 	}
 
+	/**
+	 * @see fr.iutvalence.ubpe.core.interfaces.DataEventForwarder#unregisterDataEventListener(fr.iutvalence.ubpe.core.interfaces.DataEventListener)
+	 */
 	@Override
 	public void unregisterDataEventListener(DataEventListener listener)
 	{
