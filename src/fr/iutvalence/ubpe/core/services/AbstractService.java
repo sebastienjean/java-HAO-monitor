@@ -12,15 +12,22 @@ import fr.iutvalence.ubpe.core.interfaces.Stoppable;
 public abstract class AbstractService implements Runnable, Stoppable
 {
 	/**
+	 * Service period, in milliseconds.
+	 */
+	protected final long period;
+	
+	/**
 	 * Boolean used to control termination.
 	 */
 	protected volatile boolean mustRun;
 	
 	/**
-	 * Creating a <tt>AbstractService</tt> instance.
+	 * Creating a <tt>AbstractService</tt> instance, qith a given period.
+	 * @param period service period.
 	 */
-	public AbstractService()
+	public AbstractService(long period)
 	{	
+		this.period = period;
 		this.mustRun = true;
 	}
 
@@ -32,6 +39,12 @@ public abstract class AbstractService implements Runnable, Stoppable
 		this.mustRun = false;
 	}
 
+	
+	public long getPeriod() 
+	{
+		return this.period;
+	}
+
 	/**
 	 * 
 	 * @see java.lang.Runnable#run()
@@ -40,7 +53,17 @@ public abstract class AbstractService implements Runnable, Stoppable
 	public void run()
 	{
 		while (this.mustRun)
-			this.serve();	
+		{
+			this.serve();
+			try
+			{
+				Thread.sleep(this.period);
+			}
+			catch (InterruptedException e)
+			{
+				continue;
+			}
+		}	
 	}
 
 	/**
