@@ -105,4 +105,10 @@ public class UBPEInputStreamDataEventReaderService extends AbstractDataEventPars
 
 		return new UBPE2011DataEvent(buffer.toByteArray(), eventMetadataFields);
 	}
+
+	@Override
+	public void serve() 
+	{
+		// Nothing to do here, it is a fake service	
+	}
 }

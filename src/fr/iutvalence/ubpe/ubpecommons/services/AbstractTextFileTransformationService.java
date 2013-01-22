@@ -43,8 +43,9 @@ public abstract class AbstractTextFileTransformationService extends AbstractServ
 	 */
 	private final File outputFile;
 	
-	public AbstractTextFileTransformationService(File inputFile, String charset, File outputFile)
+	public AbstractTextFileTransformationService(long period, File inputFile, String charset, File outputFile)
 	{		
+		super(period);
 		this.inputFile = inputFile;
 		this.charset = charset;
 		this.outputFile = outputFile;

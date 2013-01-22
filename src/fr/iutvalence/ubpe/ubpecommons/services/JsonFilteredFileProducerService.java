@@ -10,9 +10,9 @@ public class JsonFilteredFileProducerService extends AbstractTextFileTransformat
 {	
 	private int[] fieldsfilter;
 	
-	public JsonFilteredFileProducerService(File inputFile, String charset, File outputfile, int[] fieldsFilter)
+	public JsonFilteredFileProducerService(long period, File inputFile, String charset, File outputfile, int[] fieldsFilter)
 	{		
-		super(inputFile, charset, outputfile);
+		super(period, inputFile, charset, outputfile);
 		this.fieldsfilter = fieldsFilter;
 	}
 	

@@ -15,6 +15,7 @@ public class UBPETCPRelayClientDataEventListenerService extends AbstractDataEven
 
 	public UBPETCPRelayClientDataEventListenerService(InetSocketAddress serverAdress)
 	{
+		super(0);
 		this.serverAdress = serverAdress;
 	}
 

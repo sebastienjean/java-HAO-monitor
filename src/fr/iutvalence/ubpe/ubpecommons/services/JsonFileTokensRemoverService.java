@@ -34,9 +34,9 @@ public class JsonFileTokensRemoverService extends AbstractTextFileTransformation
 	private String[] tokens;
 	
 
-	public JsonFileTokensRemoverService(File inputFile, String charset, File outputFile, String[] tokens)
+	public JsonFileTokensRemoverService(long period, File inputFile, String charset, File outputFile, String[] tokens)
 	{	
-		super(inputFile, charset, outputFile);
+		super(period, inputFile, charset, outputFile);
 		this.tokens = tokens;
 	}
 
