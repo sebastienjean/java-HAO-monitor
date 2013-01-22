@@ -17,9 +17,9 @@ public class UBPE2011JsonProducerDataEventListenerService extends AbstractFileBu
 {
 	public final static String TOKEN = "EVENT";
 
-	public UBPE2011JsonProducerDataEventListenerService(long period, File file, String charset)
+	public UBPE2011JsonProducerDataEventListenerService(File file, String charset)
 	{
-		super(period, file, "json", charset, "//@@", "@@//");
+		super(0, file, "json", charset, "//@@", "@@//");
 	}
 
 	public String insertDataEventText(DataEvent event, String token, boolean firstTime)
