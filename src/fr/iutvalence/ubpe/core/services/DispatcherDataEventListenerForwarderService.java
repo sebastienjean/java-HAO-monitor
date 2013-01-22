@@ -23,9 +23,9 @@ public class DispatcherDataEventListenerForwarderService extends AbstractDataEve
 		this.readerMetadataFields = new HashMap<String, MetadataField>();
 	}
 
-	public DispatcherDataEventListenerForwarderService(long period, Map<String, MetadataField> readerMetadataFields)
+	public DispatcherDataEventListenerForwarderService(Map<String, MetadataField> readerMetadataFields)
 	{
-		super(period);
+		super(0);
 		this.listeners = new LinkedList<DataEventListener>();
 		this.readerMetadataFields = readerMetadataFields;
 		if (readerMetadataFields == null)
