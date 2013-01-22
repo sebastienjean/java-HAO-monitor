@@ -4,7 +4,8 @@ import java.net.InetSocketAddress;
 
 import fr.iutvalence.ubpe.ubpe2012.services.UBPE2012JsonProducerDataEventListenerService;
 import fr.iutvalence.ubpe.ubpe2012.services.UBPE2012TCPRelayWelcomeDataEventReaderService;
-import fr.iutvalence.ubpe.ubpecommons.services.JSonFilteredFilesProducerService;
+import fr.iutvalence.ubpe.ubpecommons.services.JsonFileTokensRemoverService;
+import fr.iutvalence.ubpe.ubpecommons.services.JsonFilteredFileProducerService;
 
 public class UBPE2012RelayServerMain
 {
@@ -53,8 +54,13 @@ public class UBPE2012RelayServerMain
 		server.registerDataEventListener(runnableWebJsonListener);
 		System.out.println("... done");
 		
+		System.out.println("Starting ubpe2012 JSON token remover service ...");
+		Thread jsonTokenRemoverThread = new Thread(new JsonFileTokensRemoverService(30000, new File(args[2]+".json"), "UTF-8", new File(args[2]+".clean"), new String[] {"<!-- @@EVENT@@ -->"}));
+		jsonTokenRemoverThread.start();
+		System.out.println("... done");		
+		
 		System.out.println("Starting ubpe2012 JSON filtered producer service ...");
-		Thread jsonFilteredThread = new Thread(new JSonFilteredFilesProducerService(new File(args[2]+".json")));
+		Thread jsonFilteredThread = new Thread(new JsonFilteredFileProducerService(30000, new File(args[2]+".clean"), "UTF-8", new File("global_analogTempVersusTime.json"), new int[] {1, 3, 15}));
 		jsonFilteredThread.start();
 		System.out.println("... done");		
 		
