@@ -5,18 +5,16 @@ import java.util.concurrent.BlockingQueue;
 
 import fr.iutvalence.ubpe.core.interfaces.DataEvent;
 import fr.iutvalence.ubpe.core.interfaces.DataEventListener;
-import fr.iutvalence.ubpe.core.interfaces.Stoppable;
 
 /**
- * Helper implementation of a data event processing thread.
+ * Helper implementation of a data event processing service.
  * Incoming events are processed asynchronously, using a queue.
  * 
  * @author sebastienjean
  *
  */
-public abstract class AbstractDataEventListenerService implements Runnable, Stoppable, DataEventListener
+public abstract class AbstractDataEventListenerService extends AbstractService implements DataEventListener
 {
-
 	/**
 	 * Default capacity of the event queue.
 	 */
@@ -27,11 +25,6 @@ public abstract class AbstractDataEventListenerService implements Runnable, Stop
 	 */
 	protected BlockingQueue<DataEvent> eventsQueue;
 
-	/**
-	 * Boolean used to control termination.
-	 */
-	private volatile boolean mustRun;
-
 	// TODO add constructor with capacity
 	
 	/**
@@ -40,15 +33,6 @@ public abstract class AbstractDataEventListenerService implements Runnable, Stop
 	public AbstractDataEventListenerService()
 	{		
 		this.eventsQueue = new ArrayBlockingQueue<DataEvent>(DEFAULT_QUEUE_CAPACITY);
-		this.mustRun = true;
-	}
-
-	/**
-	 * @see fr.iutvalence.ubpe.core.interfaces.Stoppable#mustStop()
-	 */
-	public void mustStop()
-	{
-		this.mustRun = false;
 	}
 
 	/**
