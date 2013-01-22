@@ -59,24 +59,18 @@ public abstract class AbstractDataEventListenerService extends AbstractService i
 	 * @param event event to be processed.
 	 */
 	protected abstract void onTakingEvent(DataEvent event);
-	
-	/**
-	 * Asynchronous event processing
-	 * @see java.lang.Runnable#run()
-	 */
+
 	@Override
-	public void run()
+	public void serve() 
 	{
-		while (this.mustRun)
+		try 
 		{
-			try
-			{
-				this.onTakingEvent(this.eventsQueue.take());
-			}
-			catch (InterruptedException e)
-			{
-				continue;
-			}	
-		}
+			this.onTakingEvent(this.eventsQueue.take());
+		} 
+		catch (InterruptedException e) 
+		{
+			// Ignore it	
+		}		
 	}
+	
 }
