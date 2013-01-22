@@ -6,21 +6,21 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 
+import fr.iutvalence.ubpe.core.interfaces.DataEvent;
 import fr.iutvalence.ubpe.core.interfaces.MetadataField;
-import fr.iutvalence.ubpe.core.services.AbstractDataEventForwarderParserService;
+import fr.iutvalence.ubpe.core.services.AbstractDataEventParserForwarderService;
 
 /**
  * The HTTP Server
  * 
  */
-public class UBPE2011TCPRelayWelcomeDataEventReaderService extends AbstractDataEventForwarderParserService
+public class UBPE2011TCPRelayWelcomeDataEventReaderService extends AbstractDataEventParserForwarderService
 {
 	private ServerSocket serverSocket;
 
 	public UBPE2011TCPRelayWelcomeDataEventReaderService(InetSocketAddress address) throws IOException
 	{
 		super(new HashMap<String, MetadataField>());
-		this.mustRun = true;
 		this.serverSocket = new ServerSocket();
 		this.serverSocket.bind(address);
 	}
@@ -41,5 +41,17 @@ public class UBPE2011TCPRelayWelcomeDataEventReaderService extends AbstractDataE
 				continue;
 			}
 		}
+	}
+
+	@Override
+	public DataEvent parse() 
+	{ 
+		return null;
+	}
+
+	@Override
+	public void serve() 
+	{	
+		// Nothing to do here, it is a fake service
 	}
 }

@@ -80,4 +80,10 @@ public class UBPE2011TCPRelayWorkerDataEventReaderService extends AbstractDataEv
 			return null;
 		}
 	}
+
+	@Override
+	public void serve() {
+		// TODO Auto-generated method stub
+		
+	}
 }
