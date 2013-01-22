@@ -80,4 +80,10 @@ public class UBPE2012TCPRelayWorkerDataEventReaderService extends AbstractDataEv
 			return null;
 		}
 	}
+
+	@Override
+	public void serve() 
+	{
+		// Nothing to do here, it is a fake service
+	}
 }
