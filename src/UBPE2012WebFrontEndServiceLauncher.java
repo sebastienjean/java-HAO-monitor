@@ -10,7 +10,7 @@ import fr.iutvalence.ubpe.ubpe2012.services.UBPE2012WebFrontEndWelcomeService;
 import fr.iutvalence.ubpe.ubpecommons.services.JsonFileTokensRemoverService;
 import fr.iutvalence.ubpe.ubpecommons.services.JsonFilteredFileProducerService;
 
-public class UBPE2012RelayServerMain
+public class UBPE2012WebFrontEndServiceLauncher
 {
 	/**
 	 * Application's main.
