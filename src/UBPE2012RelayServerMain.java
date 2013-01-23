@@ -1,9 +1,12 @@
 import java.io.File;
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.util.Collections;
+import java.util.List;
 
+import fr.iutvalence.ubpe.core.interfaces.DataEventListener;
 import fr.iutvalence.ubpe.ubpe2012.services.UBPE2012JsonProducerDataEventListenerService;
-import fr.iutvalence.ubpe.ubpe2012.services.UBPE2012TCPRelayWelcomeDataEventReaderService;
+import fr.iutvalence.ubpe.ubpe2012.services.UBPE2012WebFrontEndWelcomeService;
 import fr.iutvalence.ubpe.ubpecommons.services.JsonFileTokensRemoverService;
 import fr.iutvalence.ubpe.ubpecommons.services.JsonFilteredFileProducerService;
 
@@ -36,22 +39,22 @@ public class UBPE2012RelayServerMain
 		UBPE2012JsonProducerDataEventListenerService runnableWebJsonListener = new UBPE2012JsonProducerDataEventListenerService(new File(args[2]), "UTF-8");
 		System.out.println("... done");
 		
-		System.out.println("Creating ubpe2012 TCP Relay welcome service ...");
+		System.out.println("Registering ubpe2012 JSON producer service as a front-end listener ...");
+		List<? extends DataEventListener> frontendListeners = Collections.singletonList(runnableWebJsonListener);
+		System.out.println("... done");
+		
+		System.out.println("Creating ubpe2012 Front-end welcome service ...");
 		InetSocketAddress address = new InetSocketAddress(args[0], Integer.parseInt(args[1]));		
-		UBPE2012TCPRelayWelcomeDataEventReaderService server = null;
+		UBPE2012WebFrontEndWelcomeService server = null;
 		try
 		{
-			server = new UBPE2012TCPRelayWelcomeDataEventReaderService(address);
+			server = new UBPE2012WebFrontEndWelcomeService(address, (List<DataEventListener>) frontendListeners);
 		}
 		catch (IOException e)
 		{
 			System.err.println("Specified server address (" + args[0] + "/"+args[1]+") is invalid, please check it before running this application again");
 			System.exit(1);
 		}
-		System.out.println("... done");
-		
-		System.out.println("Registering ubpe2012 JSON producer service as welcome listener ...");
-		server.registerDataEventListener(runnableWebJsonListener);
 		System.out.println("... done");
 		
 		System.out.println("Starting ubpe2012 JSON token remover service ...");
