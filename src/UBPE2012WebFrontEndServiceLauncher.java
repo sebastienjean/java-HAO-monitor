@@ -7,7 +7,7 @@ import java.util.List;
 import fr.iutvalence.ubpe.core.interfaces.DataEventListener;
 import fr.iutvalence.ubpe.ubpe2012.services.UBPE2012JsonProducerDataEventListenerService;
 import fr.iutvalence.ubpe.ubpe2012.services.UBPE2012WebFrontEndWelcomeService;
-import fr.iutvalence.ubpe.ubpecommons.services.JsonFileTokensRemoverService;
+import fr.iutvalence.ubpe.ubpecommons.services.JsonFileTokensRemoverPeriodicService;
 import fr.iutvalence.ubpe.ubpecommons.services.JsonFilteredFileProducerService;
 
 public class UBPE2012WebFrontEndServiceLauncher
@@ -58,7 +58,7 @@ public class UBPE2012WebFrontEndServiceLauncher
 		System.out.println("... done");
 		
 		System.out.println("Starting ubpe2012 JSON token remover service ...");
-		Thread jsonTokenRemoverThread = new Thread(new JsonFileTokensRemoverService(30000, new File(args[2]+".json"), "UTF-8", new File(args[2]+".clean"), new String[] {"<!-- @@EVENT@@ -->"}));
+		Thread jsonTokenRemoverThread = new Thread(new JsonFileTokensRemoverPeriodicService(30000, new File(args[2]+".json"), "UTF-8", new File(args[2]+".clean"), new String[] {"<!-- @@EVENT@@ -->"}));
 		jsonTokenRemoverThread.start();
 		System.out.println("... done");		
 		

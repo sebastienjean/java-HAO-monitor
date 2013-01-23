@@ -6,7 +6,7 @@ import java.util.HashMap;
 import fr.iutvalence.json.AffTransform;
 import fr.iutvalence.json.ArrayFilter;
 
-public class JsonFilteredFileProducerService extends AbstractTextFileTransformationService
+public class JsonFilteredFileProducerService extends AbstractTextFileTransformationPeriodicService
 {	
 	private int[] fieldsfilter;
 	

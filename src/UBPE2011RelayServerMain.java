@@ -4,7 +4,7 @@ import java.net.InetSocketAddress;
 
 import fr.iutvalence.ubpe.ubpe2011.services.UBPE2011JsonProducerDataEventListenerService;
 import fr.iutvalence.ubpe.ubpe2011.services.UBPE2011TCPRelayWelcomeDataEventReaderService;
-import fr.iutvalence.ubpe.ubpecommons.services.JsonFileTokensRemoverService;
+import fr.iutvalence.ubpe.ubpecommons.services.JsonFileTokensRemoverPeriodicService;
 import fr.iutvalence.ubpe.ubpecommons.services.JsonFilteredFileProducerService;
 
 public class UBPE2011RelayServerMain
@@ -56,7 +56,7 @@ public class UBPE2011RelayServerMain
 		System.out.println("... done");
 		
 		System.out.println("Starting ubpe2011 JSON token remover service ...");
-		Thread jsonTokenRemoverThread = new Thread(new JsonFileTokensRemoverService(30000, new File(args[2]+".json"), "UTF-8", new File(args[2]+".clean"), new String[] {"//@@EVENT@@//"}));
+		Thread jsonTokenRemoverThread = new Thread(new JsonFileTokensRemoverPeriodicService(30000, new File(args[2]+".json"), "UTF-8", new File(args[2]+".clean"), new String[] {"//@@EVENT@@//"}));
 		jsonTokenRemoverThread.start();
 		System.out.println("... done");		
 		
