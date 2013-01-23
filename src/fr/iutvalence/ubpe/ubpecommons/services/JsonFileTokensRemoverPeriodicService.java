@@ -26,7 +26,7 @@ import fr.iutvalence.ubpe.core.services.AbstractService;
  * @author sebastienjean
  *
  */
-public class JsonFileTokensRemoverService extends AbstractTextFileTransformationService
+public class JsonFileTokensRemoverPeriodicService extends AbstractTextFileTransformationPeriodicService
 {
 	/**
 	 * Array of tokens to
@@ -34,7 +34,7 @@ public class JsonFileTokensRemoverService extends AbstractTextFileTransformation
 	private String[] tokens;
 	
 
-	public JsonFileTokensRemoverService(long period, File inputFile, String charset, File outputFile, String[] tokens)
+	public JsonFileTokensRemoverPeriodicService(long period, File inputFile, String charset, File outputFile, String[] tokens)
 	{	
 		super(period, inputFile, charset, outputFile);
 		this.tokens = tokens;
