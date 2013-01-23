@@ -15,11 +15,11 @@ import fr.iutvalence.ubpe.core.interfaces.MetadataField;
 import fr.iutvalence.ubpe.core.services.AbstractDataEventParserForwarderService;
 import fr.iutvalence.ubpe.ubpe2012.UBPE2012DataEvent;
 
-public class UBPE2012TCPRelayWorkerDataEventReaderService extends AbstractDataEventParserForwarderService
+public class UBPE2012WebFrontEndDataEventParserForwarderService extends AbstractDataEventParserForwarderService
 {
 	private Socket socket;
 
-	public UBPE2012TCPRelayWorkerDataEventReaderService(Socket socket, List<DataEventListener> listeners)
+	public UBPE2012WebFrontEndDataEventParserForwarderService(Socket socket, List<DataEventListener> listeners)
 	{
 		// TODO verify that metadata are cloned
 		super(new HashMap<String, MetadataField>());

@@ -53,7 +53,7 @@ public class UBPE2012WebFrontEndWelcomeService extends AbstractService
 			{
 				Socket sock = this.serverSocket.accept();
 				System.out.println("<ubpe2012-TCPrelay-welcome-service> Incoming connection from "+sock.getRemoteSocketAddress());
-				new Thread(new UBPE2012TCPRelayWorkerDataEventReaderService(sock, this.listeners)).start();
+				new Thread(new UBPE2012WebFrontEndDataEventParserForwarderService(sock, this.listeners)).start();
 			}
 			catch (IOException e)
 			{
