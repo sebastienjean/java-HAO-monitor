@@ -1,22 +1,8 @@
 package fr.iutvalence.ubpe.ubpecommons.services;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.Map;
 
-import org.json.JSONException;
-
-import fr.iutvalence.json.AffTransform;
-import fr.iutvalence.json.ArrayFilter;
-import fr.iutvalence.ubpe.core.services.AbstractService;
+import fr.iutvalence.ubpe.core.services.AbstractPeriodicService;
 
 /**
  * Service that take a JSON input file containing events and produces output files obtained by selecting a set of fields.
@@ -26,7 +12,7 @@ import fr.iutvalence.ubpe.core.services.AbstractService;
  * @author sebastienjean
  *
  */
-public abstract class AbstractTextFileTransformationService extends AbstractService
+public abstract class AbstractTextFileTransformationPeriodicService extends AbstractPeriodicService
 {
 	/**
 	 * Input file path (complete, with suffix).
@@ -43,7 +29,7 @@ public abstract class AbstractTextFileTransformationService extends AbstractServ
 	 */
 	private final File outputFile;
 	
-	public AbstractTextFileTransformationService(long period, File inputFile, String charset, File outputFile)
+	public AbstractTextFileTransformationPeriodicService(long period, File inputFile, String charset, File outputFile)
 	{		
 		super(period);
 		this.inputFile = inputFile;
