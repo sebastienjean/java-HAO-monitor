@@ -1,8 +1,7 @@
-package fr.iutvalence.ubpe.ubpecommons.services;
+package fr.iutvalence.ubpe.core.services;
 
 import java.io.File;
 
-import fr.iutvalence.ubpe.core.services.AbstractPeriodicService;
 
 /**
  * Service that take a JSON input file containing events and produces output files obtained by selecting a set of fields.

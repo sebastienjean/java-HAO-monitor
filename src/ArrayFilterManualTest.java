@@ -26,16 +26,16 @@
  ******************************************************************************/
 
 
-import org.json.JSONException;
-
-import fr.iutvalence.json.AffTransform;
-import fr.iutvalence.json.ArrayFilter;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.json.JSONException;
+
+import fr.iutvalence.json.AffTransform;
+import fr.iutvalence.json.ArrayFilter;
 
 /**
  * Minimal manual test.

@@ -3,8 +3,6 @@ package fr.iutvalence.ubpe.core.helpers;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import fr.iutvalence.ubpe.core.exceptions.NoSuchFieldException;
 import fr.iutvalence.ubpe.core.exceptions.StorageException;

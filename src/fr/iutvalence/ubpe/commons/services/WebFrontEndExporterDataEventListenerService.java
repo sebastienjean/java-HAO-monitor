@@ -1,4 +1,4 @@
-package fr.iutvalence.ubpe.ubpecommons.services;
+package fr.iutvalence.ubpe.commons.services;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -9,13 +9,12 @@ import java.net.Socket;
 import fr.iutvalence.ubpe.core.interfaces.DataEvent;
 import fr.iutvalence.ubpe.core.services.AbstractDataEventListenerService;
 
-public class UBPETCPRelayClientDataEventListenerService extends AbstractDataEventListenerService
+public class WebFrontEndExporterDataEventListenerService extends AbstractDataEventListenerService
 {
 	private InetSocketAddress serverAdress;
 
-	public UBPETCPRelayClientDataEventListenerService(InetSocketAddress serverAdress)
+	public WebFrontEndExporterDataEventListenerService(InetSocketAddress serverAdress)
 	{
-		super(0);
 		this.serverAdress = serverAdress;
 	}
 
@@ -25,16 +24,29 @@ public class UBPETCPRelayClientDataEventListenerService extends AbstractDataEven
 		//System.out.println("<UBPE2011-TCPrelay-client-service>: starting event processing");
 		byte[] ubpeEventRawData = event.getRawData();
 
-		String toSend = "<unknown>";
+		String readerName = "<unknown>";
+		String eventType = "<unknown>";
+		
 
 		try
 		{
-			toSend = (String) event.getMetadataFieldByName("metadata.reader.name").getValue();
+			 readerName = (String) event.getMetadataFieldByName("metadata.reader.name").getValue();
 		}
 		catch (Exception e)
 		{
+			// Ignoring it, let readerName be <unknown>
 		}
-		toSend += "#UBPE#";
+		
+		try
+		{
+			 eventType = (String) event.getMetadataFieldByName("metadata.event.type").getValue();
+		}
+		catch (Exception e)
+		{
+			// Ignoring it, let eventType be <unknown>
+		}
+		
+		String toSend = eventType+"@"+readerName+"#";
 		try
 		{
 			toSend += new String(ubpeEventRawData, "US-ASCII");
@@ -43,26 +55,14 @@ public class UBPETCPRelayClientDataEventListenerService extends AbstractDataEven
 		{
 			// Ignoring it
 		}
-
-		// try
-		// {
-		// toSend =
-		// Base64.encodeBase64URLSafeString(toSend.getBytes("US-ASCII"));
-		// }
-		// catch (UnsupportedEncodingException e)
-		// {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// continue;
-		// }
-
+		
 		Socket socket = null;
 		try
 		{
 			socket = new Socket();
 			socket.connect(this.serverAdress);
 			PrintStream out = new PrintStream(socket.getOutputStream(), true, "US-ASCII");
-			System.out.println("<UBPE-TCPrelay-client-service>: sending " + toSend);
+			System.out.println("<WebFrontEndExporter-service>: sending " + toSend);
 			out.println(toSend);
 			out.flush();
 		}
@@ -78,7 +78,7 @@ public class UBPETCPRelayClientDataEventListenerService extends AbstractDataEven
 			}
 			catch (InterruptedException e1)
 			{
-				System.out.println("<UBPE-TCPrelay-client-service>: lost event in translation :-(");
+				System.out.println("<WebFrontEndExporter-service>: lost event in translation :-(");
 			}
 		}
 		// Socket is closed by the server after reading line

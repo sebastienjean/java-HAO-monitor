@@ -1,6 +1,5 @@
 package fr.iutvalence.ubpe.core.services;
 
-import fr.iutvalence.ubpe.core.interfaces.Stoppable;
 
 /**
  * Helper implementation of a service.
