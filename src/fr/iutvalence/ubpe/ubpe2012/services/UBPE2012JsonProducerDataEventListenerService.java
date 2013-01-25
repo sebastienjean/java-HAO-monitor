@@ -1,13 +1,11 @@
 package fr.iutvalence.ubpe.ubpe2012.services;
 
 import java.io.File;
-import java.io.UnsupportedEncodingException;
 import java.util.Calendar;
 import java.util.TimeZone;
 
 import fr.iutvalence.ubpe.core.interfaces.DataEvent;
 import fr.iutvalence.ubpe.core.services.AbstractFileBuilderDataEventListenerService;
-import fr.iutvalence.ubpe.misc.HexUtils;
 import fr.iutvalence.ubpe.misc.NumbersUtils;
 import fr.iutvalence.ubpe.misc.TimeOfDay;
 import fr.iutvalence.ubpe.ubpe2012.UBPE2012Data;
@@ -19,7 +17,8 @@ public class UBPE2012JsonProducerDataEventListenerService extends AbstractFileBu
 
 	public UBPE2012JsonProducerDataEventListenerService(File file, String charset)
 	{
-		super(0,file, "json", charset, "<!-- @@", "@@ -->");
+
+		super(file, "json", charset, "<!-- @@", "@@ -->");
 	}
 
 	public String insertDataEventText(DataEvent event, String token, boolean firstTime)

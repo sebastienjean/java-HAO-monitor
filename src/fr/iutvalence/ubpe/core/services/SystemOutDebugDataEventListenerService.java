@@ -4,11 +4,6 @@ import fr.iutvalence.ubpe.core.interfaces.DataEvent;
 
 public class SystemOutDebugDataEventListenerService extends AbstractDataEventListenerService
 {
-	public SystemOutDebugDataEventListenerService() 
-	{
-		super(0);
-	}
-
 	@Override
 	protected void onTakingEvent(DataEvent event)
 	{	

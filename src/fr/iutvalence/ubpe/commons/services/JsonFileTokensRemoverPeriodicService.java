@@ -1,22 +1,14 @@
-package fr.iutvalence.ubpe.ubpecommons.services;
+package fr.iutvalence.ubpe.commons.services;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.Map;
 
-import org.json.JSONException;
-
-import fr.iutvalence.json.AffTransform;
-import fr.iutvalence.json.ArrayFilter;
-import fr.iutvalence.ubpe.core.services.AbstractService;
+import fr.iutvalence.ubpe.core.services.AbstractTextFileTransformationPeriodicService;
 
 /**
  * Service that take a JSON input file containing events and produces output files obtained by selecting a set of fields.
@@ -26,7 +18,7 @@ import fr.iutvalence.ubpe.core.services.AbstractService;
  * @author sebastienjean
  *
  */
-public class JsonFileTokensRemoverService extends AbstractTextFileTransformationService
+public class JsonFileTokensRemoverPeriodicService extends AbstractTextFileTransformationPeriodicService
 {
 	/**
 	 * Array of tokens to
@@ -34,7 +26,7 @@ public class JsonFileTokensRemoverService extends AbstractTextFileTransformation
 	private String[] tokens;
 	
 
-	public JsonFileTokensRemoverService(long period, File inputFile, String charset, File outputFile, String[] tokens)
+	public JsonFileTokensRemoverPeriodicService(long period, File inputFile, String charset, File outputFile, String[] tokens)
 	{	
 		super(period, inputFile, charset, outputFile);
 		this.tokens = tokens;

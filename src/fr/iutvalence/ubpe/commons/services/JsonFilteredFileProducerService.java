@@ -1,12 +1,13 @@
-package fr.iutvalence.ubpe.ubpecommons.services;
+package fr.iutvalence.ubpe.commons.services;
 
 import java.io.File;
 import java.util.HashMap;
 
 import fr.iutvalence.json.AffTransform;
 import fr.iutvalence.json.ArrayFilter;
+import fr.iutvalence.ubpe.core.services.AbstractTextFileTransformationPeriodicService;
 
-public class JsonFilteredFileProducerService extends AbstractTextFileTransformationService
+public class JsonFilteredFileProducerService extends AbstractTextFileTransformationPeriodicService
 {	
 	private int[] fieldsfilter;
 	

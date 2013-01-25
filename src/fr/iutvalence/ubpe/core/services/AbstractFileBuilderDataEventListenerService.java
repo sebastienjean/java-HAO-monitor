@@ -61,9 +61,8 @@ public abstract class AbstractFileBuilderDataEventListenerService extends Abstra
 	 * @param startOfToken string identifying the beginning of tokens
 	 * @param endOfToken string identifying the end of tokens
 	 */
-	public AbstractFileBuilderDataEventListenerService(long period, File file, String fileExtension, String charset, String startOfToken, String endOfToken)
+	public AbstractFileBuilderDataEventListenerService(File file, String fileExtension, String charset, String startOfToken, String endOfToken)
 	{
-		super(period);
 		this.destFile = file;
 		this.charset = charset;
 		this.startOfToken = startOfToken;
