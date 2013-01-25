@@ -1,4 +1,4 @@
-package fr.iutvalence.ubpe.ubpe2011;
+package fr.iutvalence.ubpe.core.helpers;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
@@ -7,7 +7,6 @@ import java.util.Map;
 
 import fr.iutvalence.ubpe.core.events.DefaultMetadataField;
 import fr.iutvalence.ubpe.core.exceptions.ParsingException;
-import fr.iutvalence.ubpe.core.helpers.AbstractDataEventParserForwarder;
 import fr.iutvalence.ubpe.core.interfaces.DataEvent;
 import fr.iutvalence.ubpe.core.interfaces.MetadataField;
 
