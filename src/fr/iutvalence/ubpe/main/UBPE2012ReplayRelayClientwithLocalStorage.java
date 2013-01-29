@@ -106,7 +106,7 @@ public class UBPE2012ReplayRelayClientwithLocalStorage
 		new Thread(exporterService).start();
 		System.out.println("... done");
 		
-		System.out.println("Starting serial event reader service ...");
+		System.out.println("Starting replay event reader service ...");
 		UBPEInputStreamDataEventReaderService readerService = new UBPEInputStreamDataEventReaderService(in, parsers, "UBPE2012", args[0]);
 		new Thread(readerService).start();
 		System.out.println("... done");
