@@ -16,6 +16,8 @@ public class UBPE2012DataEvent extends AbstractDataEvent
 	public UBPE2012DataEvent(byte[] ubpeFrame)
 	{
 		this(ubpeFrame, new HashMap<String, MetadataField>());
+		UBPE2012Data data = (UBPE2012Data) (this.getParsedData());
+		this.metadataFields.put("metadata.object.name", new DefaultMetadataField("metadata.object.name", String.class,data.getFrameTokens()[0]));
 	}
 
 	public UBPE2012DataEvent(byte[] ubpeFrame, Map<String, MetadataField> metadataFields)
