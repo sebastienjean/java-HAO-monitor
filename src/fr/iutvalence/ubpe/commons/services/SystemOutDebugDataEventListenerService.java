@@ -1,6 +1,7 @@
-package fr.iutvalence.ubpe.core.services;
+package fr.iutvalence.ubpe.commons.services;
 
 import fr.iutvalence.ubpe.core.interfaces.DataEvent;
+import fr.iutvalence.ubpe.core.services.AbstractDataEventListenerService;
 
 public class SystemOutDebugDataEventListenerService extends AbstractDataEventListenerService
 {
