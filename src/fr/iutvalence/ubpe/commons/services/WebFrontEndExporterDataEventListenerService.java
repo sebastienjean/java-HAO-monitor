@@ -21,7 +21,7 @@ public class WebFrontEndExporterDataEventListenerService extends AbstractDataEve
 	@Override
 	protected void onTakingEvent(DataEvent event)
 	{
-		//System.out.println("<UBPE2011-TCPrelay-client-service>: starting event processing");
+		System.out.println("<WebFrontEndExporter-service>: starting event processing");
 		byte[] ubpeEventRawData = event.getRawData();
 
 		String readerName = "<unknown>";
@@ -82,7 +82,7 @@ public class WebFrontEndExporterDataEventListenerService extends AbstractDataEve
 			}
 		}
 		// Socket is closed by the server after reading line
-		//System.out.println("<UBPE2011-TCPrelay-client-service>: ending event processing");
+		System.out.println("<WebFrontEndExporter-service>: ending event processing");
 	}
 
 }

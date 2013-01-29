@@ -9,8 +9,8 @@ import java.util.Map;
 import fr.iutvalence.ubpe.commons.services.JsonFileTokensRemoverPeriodicService;
 import fr.iutvalence.ubpe.commons.services.JsonFilteredFileProducerService;
 import fr.iutvalence.ubpe.commons.services.WebFrontEndWelcomeService;
+import fr.iutvalence.ubpe.core.helpers.UBPEDataEventParserForwarder;
 import fr.iutvalence.ubpe.core.interfaces.DataEventParserForwarder;
-import fr.iutvalence.ubpe.ubpe2011.UBPEDataEventParserForwarder;
 import fr.iutvalence.ubpe.ubpe2012.services.UBPE2012JsonProducerDataEventListenerService;
 
 public class UBPE2011WebFrontEndLauncher

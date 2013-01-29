@@ -38,15 +38,12 @@ public class UBPEDataEventParserForwarder extends AbstractDataEventParserForward
 		{
 			throw new ParsingException();
 		}
-		
+		System.err.println(eventString);
 		String[] tokens = eventString.split("#");
 		if (tokens.length != 2)
 			throw new ParsingException();
 		
 		Map<String, MetadataField> eventMetadataFields = new HashMap<String, MetadataField>();
-		
-		if (!(tokens[0].equals(this.enventType)))
-				throw new ParsingException();
 		
 		eventMetadataFields.put("metadata.reader.timestamp", new DefaultMetadataField("metadata.reader.timestamp", long.class, System.currentTimeMillis()));
 		eventMetadataFields.put("metadata.reader.name", new DefaultMetadataField("metadata.reader.name", String.class, tokens[0]));
@@ -59,6 +56,7 @@ public class UBPEDataEventParserForwarder extends AbstractDataEventParserForward
 		} 
 		catch (Exception e) 
 		{
+			e.printStackTrace();
 			throw new ParsingException();
 		}
 	}

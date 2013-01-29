@@ -145,10 +145,11 @@ public class UBPEInputStreamDataEventReaderService extends AbstractService
 		try
 		{
 			System.out.println(dataString);
-			parser.parseAndForward((this.eventType+"@"+this.readerName+"#"+dataString).getBytes("US-ASCII"));
+			parser.parseAndForward((this.readerName+"#"+dataString).getBytes("US-ASCII"));
 		}
 		catch (Exception e)
 		{
+			e.printStackTrace();
 			System.err.println("<UBPEInputStreamDataEventReader-service-"+this.hashCode()+">:  unable to parse event...bye!");
 			return;
 		} 
