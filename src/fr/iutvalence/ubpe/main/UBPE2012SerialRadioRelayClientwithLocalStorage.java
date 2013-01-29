@@ -6,6 +6,7 @@ import java.net.InetSocketAddress;
 import java.util.HashMap;
 import java.util.Map;
 
+import fr.iutvalence.ubpe.commons.services.RawFileSystemStorageDataEventListenerService;
 import fr.iutvalence.ubpe.commons.services.SystemOutDebugDataEventListenerService;
 import fr.iutvalence.ubpe.commons.services.UBPEInputStreamDataEventReaderService;
 import fr.iutvalence.ubpe.commons.services.WebFrontEndExporterDataEventListenerService;
@@ -68,7 +69,7 @@ public class UBPE2012SerialRadioRelayClientwithLocalStorage
 			System.exit(1);
 		}
 		System.out.println("... done");
-	
+		
 		System.out.println("Creating and registering ubpe2012 event parser ...");
 		UBPEDataEventParserForwarder ubpe2012Parser = new UBPEDataEventParserForwarder(fr.iutvalence.ubpe.ubpe2012.UBPE2012DataEvent.class, "UBPE2012");
 		Map<String, DataEventParserForwarder> parsers = new HashMap<String, DataEventParserForwarder>();
@@ -77,14 +78,15 @@ public class UBPE2012SerialRadioRelayClientwithLocalStorage
 		
 		System.out.println("Creating console debug service ...");
 		SystemOutDebugDataEventListenerService debugService = new SystemOutDebugDataEventListenerService();
-		// new Thread().start(debugService);
 		System.out.println("... done");		
 		
 		System.out.println("Creating raw filesystem storage service ...");
-		RawDataEventFileSystemStorage storageService = null;
+		RawDataEventFileSystemStorage storage = null;
+		RawFileSystemStorageDataEventListenerService storageService = null;
 		try 
 		{
-			storageService = new RawDataEventFileSystemStorage(args[0]+"-storage", new File(args[0]));
+			storage = new RawDataEventFileSystemStorage(args[0]+"-storage", new File(args[0]));
+			storageService = new RawFileSystemStorageDataEventListenerService(storage);
 		} 
 		catch (FileNotFoundException e1) 
 		{
@@ -107,6 +109,18 @@ public class UBPE2012SerialRadioRelayClientwithLocalStorage
 		
 		System.out.println("Registering Web frontend exporter service as a parser listener ...");
 		ubpe2012Parser.registerDataEventListener(exporterService);
+		System.out.println("... done");
+		
+		System.out.println("Starting console debug service ...");
+		new Thread(debugService).start();
+		System.out.println("... done");
+		
+		System.out.println("Starting raw filesystem storage service ...");
+		new Thread(storageService).start();
+		System.out.println("... done");
+		
+		System.out.println("Starting Web frontend exporter service ...");
+		new Thread(exporterService).start();
 		System.out.println("... done");
 		
 		System.out.println("Starting serial event reader service ...");
