@@ -9,7 +9,7 @@ import fr.iutvalence.ubpe.core.exceptions.MalformedFrameException;
 public class UBPE2012Data implements Serializable
 {
 	// #USAINBALL,001330,4454.91506N,00454.88154E,,CC,V,00,,,0,0,350,601,38,0,563,539,564,554,577,350,344,267,967,111242,001
-
+	// #USAINBALL,125643,4455.02572N,00455.01420E,00155,B1,A,04,001.2,141.5,5,23,1,858,839,72,000,391,0,385,196,65,764,0000,14
 	public final static String FRAME_TOKENS_SEPARATOR = ",";
 
 	public final static String[] FRAME_TOKENS_NAMES = { "objectName", "dateGPS", "latGPS", "longGPS", "altGPS", "checkGPS", "fixGPS", "numSatsGPS", "speedGPS",
@@ -37,6 +37,8 @@ public class UBPE2012Data implements Serializable
 		try
 		{
 			ubpeString = new String(ubpeFrame, "US-ASCII");
+			// TODO remove debug info
+			System.out.println("--- "+ubpeString);
 		}
 		catch (UnsupportedEncodingException e)
 		{
@@ -45,7 +47,11 @@ public class UBPE2012Data implements Serializable
 		this.frameTokens = ubpeString.split(",");
 
 		if (this.frameTokens.length != FRAME_TOKENS_NAMES.length)
+		{
+			// TODO remove debug
+			System.err.println("--- expected "+FRAME_TOKENS_NAMES.length+", found "+this.frameTokens.length+" tokens");
 			throw new MalformedFrameException();
+		}
 		if (!this.isValidData())
 		{
 			throw new MalformedFrameException();

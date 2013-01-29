@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import fr.iutvalence.ubpe.core.events.AbstractDataEvent;
+import fr.iutvalence.ubpe.core.events.DefaultMetadataField;
 import fr.iutvalence.ubpe.core.exceptions.MalformedFrameException;
 import fr.iutvalence.ubpe.core.exceptions.ParsingException;
 import fr.iutvalence.ubpe.core.helpers.AbstractFileSystemStorage;
@@ -20,6 +21,8 @@ public class UBPE2012DataEvent extends AbstractDataEvent
 	public UBPE2012DataEvent(byte[] ubpeFrame, Map<String, MetadataField> metadataFields)
 	{
 		super(ubpeFrame, metadataFields);
+		UBPE2012Data data = (UBPE2012Data) (this.getParsedData());
+		this.metadataFields.put("metadata.object.name", new DefaultMetadataField("metadata.object.name", String.class,data.getFrameTokens()[0]));
 	}
 
 	@Override
@@ -34,6 +37,7 @@ public class UBPE2012DataEvent extends AbstractDataEvent
 		}
 		catch (MalformedFrameException e)
 		{
+			e.printStackTrace();
 			throw new ParsingException();
 		}
 	}
