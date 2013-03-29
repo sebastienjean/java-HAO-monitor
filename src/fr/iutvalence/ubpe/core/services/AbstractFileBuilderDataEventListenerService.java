@@ -11,18 +11,22 @@ import java.io.PrintStream;
 import fr.iutvalence.ubpe.core.interfaces.DataEvent;
 
 /**
- * Helper implementation of a data event listener service that produces output in a text file.<br/><br/>
+ * Helper implementation of a data event listener service that produces output
+ * in a text file.<br/>
+ * <br/>
  * 
- * A template file (supposed to be existing) is used both for input and output. It contains tokens where 
- * generated information can be inserted (before or/and after) each time a data event is received.<br/> 
- * There can be several tokens in the same template file, but all tokens that this service is able to
- * recognise must begin and end with the same characters sequences.
+ * A template file (supposed to be existing) is used both for input and output.
+ * It contains tokens where generated information can be inserted (before or/and
+ * after) each time a data event is received.<br/>
+ * There can be several tokens in the same template file, but all tokens that
+ * this service is able to recognise must begin and end with the same characters
+ * sequences.
  * 
  * @author sebastienjean
- *
+ * 
  */
 public abstract class AbstractFileBuilderDataEventListenerService extends AbstractDataEventListenerService
-{	
+{
 	/**
 	 * Destination file path.
 	 */
@@ -47,19 +51,27 @@ public abstract class AbstractFileBuilderDataEventListenerService extends Abstra
 	 * String identifying the end of a token.
 	 */
 	private String endOfToken;
-	
+
 	/**
 	 * Boolean indicating if it is the first event processing
 	 */
 	private boolean firstTime;
-	
+
 	/**
-	 * Creating a new <tt>AbstractFileBuilderDataEventListenerService</tt> instance, from given filename/extension, charset and start/end of tokens.
-	 * @param file input/output file path (including name but excluding extension)
-	 * @param fileExtension input/output file extension
-	 * @param charset charset ot be used
-	 * @param startOfToken string identifying the beginning of tokens
-	 * @param endOfToken string identifying the end of tokens
+	 * Creating a new <tt>AbstractFileBuilderDataEventListenerService</tt>
+	 * instance, from given filename/extension, charset and start/end of tokens.
+	 * 
+	 * @param file
+	 *            input/output file path (including name but excluding
+	 *            extension)
+	 * @param fileExtension
+	 *            input/output file extension
+	 * @param charset
+	 *            charset ot be used
+	 * @param startOfToken
+	 *            string identifying the beginning of tokens
+	 * @param endOfToken
+	 *            string identifying the end of tokens
 	 */
 	public AbstractFileBuilderDataEventListenerService(File file, String fileExtension, String charset, String startOfToken, String endOfToken)
 	{
@@ -73,16 +85,19 @@ public abstract class AbstractFileBuilderDataEventListenerService extends Abstra
 
 	/**
 	 * Text insertion behaviour.<br/>
-	 * Once an event is received, this method is called each time a valid token 
+	 * Once an event is received, this method is called each time a valid token
 	 * (matching start/end strings) is parsed in input/output file.
 	 * 
-	 * @param event the received event
-	 * @param token the parsed token 
-	 * @param firstTime first event indicator
+	 * @param event
+	 *            the received event
+	 * @param token
+	 *            the parsed token
+	 * @param firstTime
+	 *            first event indicator
 	 * @return the text to be inserted
 	 */
 	public abstract String insertDataEventText(DataEvent event, String token, boolean firstTime);
-	
+
 	/**
 	 * @see fr.iutvalence.ubpe.core.services.AbstractDataEventListenerService#onTakingEvent(fr.iutvalence.ubpe.core.interfaces.DataEvent)
 	 */
@@ -106,16 +121,17 @@ public abstract class AbstractFileBuilderDataEventListenerService extends Abstra
 				if (lineTrimed.startsWith(this.startOfToken) && lineTrimed.endsWith(this.endOfToken))
 				{
 					int sot = lineTrimed.indexOf(this.startOfToken);
-					//System.out.println(sot);
-					//System.out.println(sot + this.startOfToken.length());
+					// System.out.println(sot);
+					// System.out.println(sot + this.startOfToken.length());
 					int eot = lineTrimed.indexOf(this.endOfToken);
-					//System.out.println(eot);
+					// System.out.println(eot);
 					String token = lineTrimed.substring(sot + this.startOfToken.length(), eot).trim();
 					String textToInsert = insertDataEventText(event, token, this.firstTime);
-					
+
 					if (textToInsert != null)
 					{
-						if (this.firstTime && (textToInsert.length()>0)) this.firstTime = false;
+						if (this.firstTime && (textToInsert.length() > 0))
+							this.firstTime = false;
 						ps.println(textToInsert);
 					}
 				}

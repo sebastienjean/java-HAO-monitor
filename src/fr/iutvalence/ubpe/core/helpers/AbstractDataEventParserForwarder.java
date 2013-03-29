@@ -16,7 +16,7 @@ public abstract class AbstractDataEventParserForwarder implements DataEventParse
 	{
 		this.listeners = new LinkedList<DataEventListener>();
 	}
-	
+
 	/**
 	 * @see fr.iutvalence.ubpe.core.interfaces.DataEventForwarder#registerDataEventListener(fr.iutvalence.ubpe.core.interfaces.DataEventListener)
 	 */
@@ -32,19 +32,19 @@ public abstract class AbstractDataEventParserForwarder implements DataEventParse
 	@Override
 	public void unregisterDataEventListener(DataEventListener listener)
 	{
-		this.listeners.remove(listener);		
+		this.listeners.remove(listener);
 	}
 
 	@Override
-	public void forward(DataEvent event) 
+	public void forward(DataEvent event)
 	{
-		for (DataEventListener listener:this.listeners)
+		for (DataEventListener listener : this.listeners)
 			listener.process(event);
 	}
 
 	@Override
-	public void parseAndForward(byte[] eventData) throws ParsingException 
+	public void parseAndForward(byte[] eventData) throws ParsingException
 	{
-		this.forward(this.parse(eventData));	
+		this.forward(this.parse(eventData));
 	}
 }

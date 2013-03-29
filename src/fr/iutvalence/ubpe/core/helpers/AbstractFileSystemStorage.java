@@ -72,13 +72,15 @@ public abstract class AbstractFileSystemStorage implements DataEventStorage
 			try
 			{
 				this.storeAsRaw(event, new File(this.eventStorageRootDir, RAWFILE_DATEFORMATTER.format(new Date()) + ".malformed"));
-				//LOGGER.log(Level.WARNING, "event could not be stored as expected, stored as raw");
+				// LOGGER.log(Level.WARNING,
+				// "event could not be stored as expected, stored as raw");
 				// TODO debug
 				System.out.println("Storage could not store event as expected, storing it as raw");
 			}
 			catch (IOException e1)
 			{
-				//LOGGER.log(Level.WARNING, "event could not be stored neither as expected, neither as raw");
+				// LOGGER.log(Level.WARNING,
+				// "event could not be stored neither as expected, neither as raw");
 				// TODO debug
 				System.out.println("Storage could not store event neither as expected, neither as raw");
 			}

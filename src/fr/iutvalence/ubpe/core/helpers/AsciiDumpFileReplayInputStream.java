@@ -12,9 +12,9 @@ import java.io.PrintStream;
 public class AsciiDumpFileReplayInputStream extends PipedInputStream implements Runnable
 {
 	private final BufferedReader in;
-		
+
 	private final PrintStream out;
-	
+
 	private final long pause;
 
 	public AsciiDumpFileReplayInputStream(File path, String charset, long pauseBetweenLines) throws IOException
@@ -24,16 +24,16 @@ public class AsciiDumpFileReplayInputStream extends PipedInputStream implements 
 		this.pause = pauseBetweenLines;
 	}
 
-	
 	public void run()
 	{
 		while (true)
-		{	
+		{
 			try
 			{
 				String line = this.in.readLine();
 				// TODO remove debug
-				if (line == null) throw new Exception();
+				if (line == null)
+					throw new Exception();
 				System.out.println(line);
 				this.out.println(line);
 			}
@@ -42,7 +42,7 @@ public class AsciiDumpFileReplayInputStream extends PipedInputStream implements 
 				System.out.println("End");
 				return;
 			}
-			
+
 			try
 			{
 				Thread.sleep(this.pause);
@@ -50,7 +50,7 @@ public class AsciiDumpFileReplayInputStream extends PipedInputStream implements 
 			catch (InterruptedException e)
 			{
 				// Ignoring it
-			}		
+			}
 		}
 	}
 }

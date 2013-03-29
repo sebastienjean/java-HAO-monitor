@@ -1,4 +1,5 @@
 package fr.iutvalence.ubpe.main;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -39,9 +40,9 @@ public class UBPE2012SerialRadioRelayClientwithLocalStorage
 			// System.err.println("(expected IP and port for local binding)");
 			System.exit(1);
 		}
-		
+
 		// files are stored in current directory, under "station name" subfolder
-		System.out.println("Trying to configure serial port "+args[1]+" ...");
+		System.out.println("Trying to configure serial port " + args[1] + " ...");
 		Serial600InputStream in = null;
 
 		try
@@ -69,65 +70,66 @@ public class UBPE2012SerialRadioRelayClientwithLocalStorage
 			System.exit(1);
 		}
 		System.out.println("... done");
-		
+
 		System.out.println("Creating and registering ubpe2012 event parser ...");
 		UBPEDataEventParserForwarder ubpe2012Parser = new UBPEDataEventParserForwarder(fr.iutvalence.ubpe.ubpe2012.UBPE2012DataEvent.class, "UBPE2012");
 		Map<String, DataEventParserForwarder> parsers = new HashMap<String, DataEventParserForwarder>();
 		parsers.put("UBPE2012", ubpe2012Parser);
-		System.out.println("... done");	
-		
+		System.out.println("... done");
+
 		System.out.println("Creating console debug service ...");
 		SystemOutDebugDataEventListenerService debugService = new SystemOutDebugDataEventListenerService();
-		System.out.println("... done");		
-		
+		System.out.println("... done");
+
 		System.out.println("Creating raw filesystem storage service ...");
 		RawDataEventFileSystemStorage storage = null;
 		RawFileSystemStorageDataEventListenerService storageService = null;
-		try 
+		try
 		{
-			storage = new RawDataEventFileSystemStorage(args[0]+"-storage", new File(args[0]));
+			storage = new RawDataEventFileSystemStorage(args[0] + "-storage", new File(args[0]));
 			storageService = new RawFileSystemStorageDataEventListenerService(storage);
-		} 
-		catch (FileNotFoundException e1) 
+		}
+		catch (FileNotFoundException e1)
 		{
 			System.err.println("Unable to create subdir in working directory, check permissions");
 			System.exit(1);
 		}
-		System.out.println("... done");		
-		
-		System.out.println("Creating Web frontend exporter service ...");
-		WebFrontEndExporterDataEventListenerService exporterService = new WebFrontEndExporterDataEventListenerService(new InetSocketAddress(args[2], Integer.parseInt(args[3])));
 		System.out.println("... done");
-		
+
+		System.out.println("Creating Web frontend exporter service ...");
+		WebFrontEndExporterDataEventListenerService exporterService = new WebFrontEndExporterDataEventListenerService(new InetSocketAddress(args[2],
+				Integer.parseInt(args[3])));
+		System.out.println("... done");
+
 		System.out.println("Registering console debug service as a parser listener ...");
 		ubpe2012Parser.registerDataEventListener(debugService);
 		System.out.println("... done");
-		
+
 		System.out.println("Registering raw filesystem storage service as a parser listener ...");
 		ubpe2012Parser.registerDataEventListener(storageService);
 		System.out.println("... done");
-		
+
 		System.out.println("Registering Web frontend exporter service as a parser listener ...");
 		ubpe2012Parser.registerDataEventListener(exporterService);
 		System.out.println("... done");
-		
+
 		System.out.println("Starting console debug service ...");
 		new Thread(debugService).start();
 		System.out.println("... done");
-		
+
 		System.out.println("Starting raw filesystem storage service ...");
 		new Thread(storageService).start();
 		System.out.println("... done");
-		
+
 		System.out.println("Starting Web frontend exporter service ...");
 		new Thread(exporterService).start();
 		System.out.println("... done");
-		
+
 		System.out.println("Starting serial event reader service ...");
 		UBPEInputStreamDataEventReaderService readerService = new UBPEInputStreamDataEventReaderService(in, parsers, "UBPE2012", args[0]);
 		new Thread(readerService).start();
 		System.out.println("... done");
-		
+
 		System.out.println("Initialization completed.");
 	}
 }

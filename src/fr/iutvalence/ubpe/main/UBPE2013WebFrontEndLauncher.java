@@ -11,9 +11,9 @@ import fr.iutvalence.ubpe.commons.services.JsonFilteredFileProducerService;
 import fr.iutvalence.ubpe.commons.services.WebFrontEndWelcomeService;
 import fr.iutvalence.ubpe.core.helpers.UBPEDataEventParserForwarder;
 import fr.iutvalence.ubpe.core.interfaces.DataEventParserForwarder;
-import fr.iutvalence.ubpe.ubpe2012.services.UBPE2012JsonProducerDataEventListenerService;
+import fr.iutvalence.ubpe.ubpe2013.services.UBPE2013JsonProducerDataEventListenerService;
 
-public class UBPE2012WebFrontEndLauncher
+public class UBPE2013WebFrontEndLauncher
 {
 	/**
 	 * Application's main.
@@ -40,9 +40,9 @@ public class UBPE2012WebFrontEndLauncher
 		}
 
 		System.out.println("Creating and registering ubpe2012 event parser ...");
-		UBPEDataEventParserForwarder ubpe2012Parser = new UBPEDataEventParserForwarder(fr.iutvalence.ubpe.ubpe2012.UBPE2012DataEvent.class, "UBPE2012");
+		UBPEDataEventParserForwarder ubpe2013Parser = new UBPEDataEventParserForwarder(fr.iutvalence.ubpe.ubpe2013.UBPE2013DataEvent.class, "UBPE2013");
 		Map<String, DataEventParserForwarder> parsers = new HashMap<String, DataEventParserForwarder>();
-		parsers.put("UBPE2012", ubpe2012Parser);
+		parsers.put("UBPE2013", ubpe2013Parser);
 		System.out.println("... done");
 
 		System.out.println("Starting JSON token remover periodic service ...");
@@ -55,15 +55,15 @@ public class UBPE2012WebFrontEndLauncher
 				1, 3, 15 })).start();
 		System.out.println("... done");
 
-		System.out.println("Creating ubpe2012 JSON producer service ...");
-		UBPE2012JsonProducerDataEventListenerService runnableWebJsonListener = new UBPE2012JsonProducerDataEventListenerService(new File(args[2]), "UTF-8");
+		System.out.println("Creating ubpe2013 JSON producer service ...");
+		UBPE2013JsonProducerDataEventListenerService runnableWebJsonListener = new UBPE2013JsonProducerDataEventListenerService(new File(args[2]), "UTF-8");
 		System.out.println("... done");
 
-		System.out.println("Registering ubpe2012 JSON producer service as a parser listener ...");
-		ubpe2012Parser.registerDataEventListener(runnableWebJsonListener);
+		System.out.println("Registering ubpe2013 JSON producer service as a parser listener ...");
+		ubpe2013Parser.registerDataEventListener(runnableWebJsonListener);
 		System.out.println("... done");
 
-		System.out.println("Starting ubpe2012 JSON producer service ...");
+		System.out.println("Starting ubpe2013 JSON producer service ...");
 		new Thread(runnableWebJsonListener).start();
 		System.out.println("... done");
 

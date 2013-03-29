@@ -18,14 +18,14 @@ public class UBPE2011DataEvent extends AbstractDataEvent
 	{
 		this(ubpeFrame, new HashMap<String, MetadataField>());
 		UBPE2011Data data = (UBPE2011Data) (this.getParsedData());
-		this.metadataFields.put("metadata.object.name", new DefaultMetadataField("metadata.object.name", String.class,data.getFrameTokens()[0]));
+		this.metadataFields.put("metadata.object.name", new DefaultMetadataField("metadata.object.name", String.class, data.getFrameTokens()[0]));
 	}
 
 	public UBPE2011DataEvent(byte[] ubpeFrame, Map<String, MetadataField> metadataFields)
 	{
 		super(ubpeFrame, metadataFields);
 		UBPE2011Data data = (UBPE2011Data) (this.getParsedData());
-		this.metadataFields.put("metadata.object.name", new DefaultMetadataField("metadata.object.name", String.class,data.getFrameTokens()[0]));
+		this.metadataFields.put("metadata.object.name", new DefaultMetadataField("metadata.object.name", String.class, data.getFrameTokens()[0]));
 	}
 
 	@Override

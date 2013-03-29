@@ -25,7 +25,6 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.       *
  ******************************************************************************/
 
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -39,36 +38,39 @@ import fr.iutvalence.json.ArrayFilter;
 
 /**
  * Minimal manual test.
- *
+ * 
  * @author Anthony Gelibert
  * @version 1.0.0
  */
 public class ArrayFilterManualTest
 {
-    /**
-     * Main.
-     *
-     * @param args none
-     *
-     * @throws FileNotFoundException Can't find the files.
-     * @throws IOException           I/O exception with the files.
-     * @throws JSONException         JSON exception.
-     */
-    public static void main(final String... args)
-            throws FileNotFoundException, IOException, JSONException
-    {
-        final File res = new File("res.txt");
-        if (res.delete())
-        {
-            System.out.println("Remove old files...");
-        }
-        if (!res.createNewFile())
-        {
-            System.out.println("Serious problem... That shouldn't happen");
-        }
-        final Map<Integer, AffTransform> map = new HashMap<Integer, AffTransform>(1);
-        map.put(13, new AffTransform(1.0f, 5.3923f));
-        ArrayFilter.jsonFilter(new File("test.js"), res, new int[]{1, 2, 0, 13}, map, 0, "IUT-FM");
+	/**
+	 * Main.
+	 * 
+	 * @param args
+	 *            none
+	 * 
+	 * @throws FileNotFoundException
+	 *             Can't find the files.
+	 * @throws IOException
+	 *             I/O exception with the files.
+	 * @throws JSONException
+	 *             JSON exception.
+	 */
+	public static void main(final String... args) throws FileNotFoundException, IOException, JSONException
+	{
+		final File res = new File("res.txt");
+		if (res.delete())
+		{
+			System.out.println("Remove old files...");
+		}
+		if (!res.createNewFile())
+		{
+			System.out.println("Serious problem... That shouldn't happen");
+		}
+		final Map<Integer, AffTransform> map = new HashMap<Integer, AffTransform>(1);
+		map.put(13, new AffTransform(1.0f, 5.3923f));
+		ArrayFilter.jsonFilter(new File("test.js"), res, new int[] { 1, 2, 0, 13 }, map, 0, "IUT-FM");
 
-    }
+	}
 }

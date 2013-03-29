@@ -7,8 +7,8 @@ import fr.iutvalence.ubpe.core.services.AbstractDataEventListenerService;
 public class RawFileSystemStorageDataEventListenerService extends AbstractDataEventListenerService
 {
 	private final RawDataEventFileSystemStorage storage;
-	
-	public RawFileSystemStorageDataEventListenerService(RawDataEventFileSystemStorage storage) 
+
+	public RawFileSystemStorageDataEventListenerService(RawDataEventFileSystemStorage storage)
 	{
 		super();
 		this.storage = storage;
@@ -16,7 +16,7 @@ public class RawFileSystemStorageDataEventListenerService extends AbstractDataEv
 
 	@Override
 	protected void onTakingEvent(DataEvent event)
-	{	
+	{
 		System.out.println("<RawDataEventFileSystemStorage-service>: starting event processing");
 		this.storage.process(event);
 		System.out.println("<RawDataEventFileSystemStorage-service>: ending event processing");

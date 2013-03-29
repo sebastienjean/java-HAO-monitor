@@ -26,27 +26,26 @@ public class WebFrontEndExporterDataEventListenerService extends AbstractDataEve
 
 		String readerName = "<unknown>";
 		String eventType = "<unknown>";
-		
 
 		try
 		{
-			 readerName = (String) event.getMetadataFieldByName("metadata.reader.name").getValue();
+			readerName = (String) event.getMetadataFieldByName("metadata.reader.name").getValue();
 		}
 		catch (Exception e)
 		{
 			// Ignoring it, let readerName be <unknown>
 		}
-		
+
 		try
 		{
-			 eventType = (String) event.getMetadataFieldByName("metadata.event.type").getValue();
+			eventType = (String) event.getMetadataFieldByName("metadata.event.type").getValue();
 		}
 		catch (Exception e)
 		{
 			// Ignoring it, let eventType be <unknown>
 		}
-		
-		String toSend = eventType+"@"+readerName+"#";
+
+		String toSend = eventType + "@" + readerName + "#";
 		try
 		{
 			toSend += new String(ubpeEventRawData, "US-ASCII");
@@ -55,7 +54,7 @@ public class WebFrontEndExporterDataEventListenerService extends AbstractDataEve
 		{
 			// Ignoring it
 		}
-		
+
 		Socket socket = null;
 		try
 		{

@@ -10,7 +10,8 @@ import fr.iutvalence.ubpe.core.interfaces.DataEvent;
 
 public class RawDataEventFileSystemStorage extends AbstractFileSystemStorage
 {
-	//private final static Logger LOGGER = Logger.getLogger(RawDataEventFileSystemStorage.class.getName());
+	// private final static Logger LOGGER =
+	// Logger.getLogger(RawDataEventFileSystemStorage.class.getName());
 
 	public RawDataEventFileSystemStorage(String eventStorageName, File eventStorageRootDir) throws FileNotFoundException
 	{
@@ -26,10 +27,12 @@ public class RawDataEventFileSystemStorage extends AbstractFileSystemStorage
 
 		try
 		{
-			objectName = (String) (event.getMetadataFieldByName("metadata.object.name").getValue());			
-			//LOGGER.log(Level.INFO, eventStorageName + " found object name metadata in event");
+			objectName = (String) (event.getMetadataFieldByName("metadata.object.name").getValue());
+			// LOGGER.log(Level.INFO, eventStorageName +
+			// " found object name metadata in event");
 			receiverName = (String) (event.getMetadataFieldByName("metadata.reader.name").getValue());
-			//LOGGER.log(Level.INFO, eventStorageName + " found reader name metadata in event");
+			// LOGGER.log(Level.INFO, eventStorageName +
+			// " found reader name metadata in event");
 		}
 		catch (NoSuchFieldException e)
 		{
@@ -42,7 +45,8 @@ public class RawDataEventFileSystemStorage extends AbstractFileSystemStorage
 		try
 		{
 			receiverTimestamp = (Long) (event.getMetadataFieldByName("metadata.reader.timestamp").getValue());
-			//LOGGER.log(Level.INFO, eventStorageName + " found timestamp metadata in event");
+			// LOGGER.log(Level.INFO, eventStorageName +
+			// " found timestamp metadata in event");
 		}
 		catch (NoSuchFieldException e)
 		{
@@ -50,15 +54,17 @@ public class RawDataEventFileSystemStorage extends AbstractFileSystemStorage
 
 		try
 		{
-			this.storeAsRaw(event, new File(storageSubdir, ""+receiverTimestamp + ".raw"));	
-			// TODO check for windows if a user-friendly name can be used (parsed format fails)
-			//this.storeAsRaw(event, new File(storageSubdir, RAWFILE_DATEFORMATTER.format(receiverTimestamp) + ".raw"));
+			this.storeAsRaw(event, new File(storageSubdir, "" + receiverTimestamp + ".raw"));
+			// TODO check for windows if a user-friendly name can be used
+			// (parsed format fails)
+			// this.storeAsRaw(event, new File(storageSubdir,
+			// RAWFILE_DATEFORMATTER.format(receiverTimestamp) + ".raw"));
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
 			throw new StorageException("Exception while writing output file");
 		}
-		//LOGGER.log(Level.INFO, eventStorageName + " logged an event");
+		// LOGGER.log(Level.INFO, eventStorageName + " logged an event");
 	}
 }

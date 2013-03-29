@@ -131,15 +131,16 @@ public class UBPE2012JsonProducerDataEventListenerService extends AbstractFileBu
 			result += NumbersUtils.removeLeadingZeros(frameTokens[8]) + ", ";
 
 		// Inserting bearing without leading zeros
-//		try
-//		{
-//			System.out.println(HexUtils.byteArrayToHexString((frameTokens[9].trim() + "+").getBytes("US-ASCII")));
-//		}
-//		catch (UnsupportedEncodingException e)
-//		{
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		// try
+		// {
+		// System.out.println(HexUtils.byteArrayToHexString((frameTokens[9].trim()
+		// + "+").getBytes("US-ASCII")));
+		// }
+		// catch (UnsupportedEncodingException e)
+		// {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
 		if (frameTokens[9].trim().equals(""))
 			result += "null, ";
 		else

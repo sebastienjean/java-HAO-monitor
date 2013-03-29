@@ -13,8 +13,7 @@ public class Serial600InputStream extends InputStream
 {
 	private InputStream in;
 
-	public Serial600InputStream(String serialPortName) throws PortInUseException, NoSuchPortException, UnsupportedCommOperationException,
-			IOException
+	public Serial600InputStream(String serialPortName) throws PortInUseException, NoSuchPortException, UnsupportedCommOperationException, IOException
 	{
 		SerialPort port = null;
 

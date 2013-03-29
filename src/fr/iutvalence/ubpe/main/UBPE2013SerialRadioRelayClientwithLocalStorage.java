@@ -11,12 +11,15 @@ import fr.iutvalence.ubpe.commons.services.RawFileSystemStorageDataEventListener
 import fr.iutvalence.ubpe.commons.services.SystemOutDebugDataEventListenerService;
 import fr.iutvalence.ubpe.commons.services.UBPEInputStreamDataEventReaderService;
 import fr.iutvalence.ubpe.commons.services.WebFrontEndExporterDataEventListenerService;
-import fr.iutvalence.ubpe.core.helpers.AsciiDumpFileReplayInputStream;
 import fr.iutvalence.ubpe.core.helpers.RawDataEventFileSystemStorage;
+import fr.iutvalence.ubpe.core.helpers.Serial600InputStream;
 import fr.iutvalence.ubpe.core.helpers.UBPEDataEventParserForwarder;
 import fr.iutvalence.ubpe.core.interfaces.DataEventParserForwarder;
+import gnu.io.NoSuchPortException;
+import gnu.io.PortInUseException;
+import gnu.io.UnsupportedCommOperationException;
 
-public class UBPE2012ReplayRelayClientwithLocalStorage
+public class UBPE2013SerialRadioRelayClientwithLocalStorage
 {
 
 	/**
@@ -26,7 +29,7 @@ public class UBPE2012ReplayRelayClientwithLocalStorage
 	public static void main(String[] args)
 	{
 		// args[0] station name
-		// args[1] replay file path
+		// args[1] serial port identifier
 		// args[2] relay server IP
 		// args[3] relay server port
 		// args[4] object name
@@ -39,25 +42,39 @@ public class UBPE2012ReplayRelayClientwithLocalStorage
 		}
 
 		// files are stored in current directory, under "station name" subfolder
-		System.out.println("Opening replay file (" + args[1] + ") ...");
-		AsciiDumpFileReplayInputStream in = null;
+		System.out.println("Trying to configure serial port " + args[1] + " ...");
+		Serial600InputStream in = null;
 
 		try
 		{
-			in = new AsciiDumpFileReplayInputStream(new File(args[1]), "US-ASCII", 2000);
+			in = new Serial600InputStream(args[1]);
+		}
+		catch (PortInUseException e)
+		{
+			System.err.println("Serial port is already in use, please close it before running this application again");
+			System.exit(1);
+		}
+		catch (NoSuchPortException e)
+		{
+			System.err.println("Specified port (" + args[1] + ") does not exist, please check serial port name before running this application again");
+			System.exit(1);
+		}
+		catch (UnsupportedCommOperationException e)
+		{
+			System.err.println("Specified port (" + args[1] + ") can not be configured properly, please check it before running this application again");
+			System.exit(1);
 		}
 		catch (IOException e)
 		{
-			System.err.println("Replay file not found");
+			System.err.println("Unable to read from specified port (" + args[1] + "), please check it before running this application again");
 			System.exit(1);
 		}
-		new Thread(in).start();
 		System.out.println("... done");
 
-		System.out.println("Creating and registering ubpe2012 event parser ...");
-		UBPEDataEventParserForwarder ubpe2012Parser = new UBPEDataEventParserForwarder(fr.iutvalence.ubpe.ubpe2012.UBPE2012DataEvent.class, "UBPE2012");
+		System.out.println("Creating and registering ubpe2013 event parser ...");
+		UBPEDataEventParserForwarder ubpe2013Parser = new UBPEDataEventParserForwarder(fr.iutvalence.ubpe.ubpe2013.UBPE2013DataEvent.class, "UBPE2013");
 		Map<String, DataEventParserForwarder> parsers = new HashMap<String, DataEventParserForwarder>();
-		parsers.put("UBPE2012", ubpe2012Parser);
+		parsers.put("UBPE2013", ubpe2013Parser);
 		System.out.println("... done");
 
 		System.out.println("Creating console debug service ...");
@@ -85,15 +102,15 @@ public class UBPE2012ReplayRelayClientwithLocalStorage
 		System.out.println("... done");
 
 		System.out.println("Registering console debug service as a parser listener ...");
-		ubpe2012Parser.registerDataEventListener(debugService);
+		ubpe2013Parser.registerDataEventListener(debugService);
 		System.out.println("... done");
 
 		System.out.println("Registering raw filesystem storage service as a parser listener ...");
-		ubpe2012Parser.registerDataEventListener(storageService);
+		ubpe2013Parser.registerDataEventListener(storageService);
 		System.out.println("... done");
 
 		System.out.println("Registering Web frontend exporter service as a parser listener ...");
-		ubpe2012Parser.registerDataEventListener(exporterService);
+		ubpe2013Parser.registerDataEventListener(exporterService);
 		System.out.println("... done");
 
 		System.out.println("Starting console debug service ...");
@@ -108,8 +125,8 @@ public class UBPE2012ReplayRelayClientwithLocalStorage
 		new Thread(exporterService).start();
 		System.out.println("... done");
 
-		System.out.println("Starting replay event reader service ...");
-		UBPEInputStreamDataEventReaderService readerService = new UBPEInputStreamDataEventReaderService(in, parsers, "UBPE2012", args[0]);
+		System.out.println("Starting serial event reader service ...");
+		UBPEInputStreamDataEventReaderService readerService = new UBPEInputStreamDataEventReaderService(in, parsers, "UBPE2013", args[0]);
 		new Thread(readerService).start();
 		System.out.println("... done");
 

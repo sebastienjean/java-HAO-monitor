@@ -7,7 +7,7 @@ import fr.iutvalence.ubpe.core.interfaces.Stoppable;
  * 
  * 
  * @author sebastienjean
- *
+ * 
  */
 public abstract class AbstractService implements Runnable, Stoppable
 {
@@ -15,12 +15,12 @@ public abstract class AbstractService implements Runnable, Stoppable
 	 * Boolean used to control termination.
 	 */
 	protected volatile boolean mustRun;
-	
+
 	/**
 	 * Creating a <tt>AbstractService</tt> instance.
 	 */
 	public AbstractService()
-	{	
+	{
 		this.mustRun = true;
 	}
 

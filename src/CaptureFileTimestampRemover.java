@@ -8,7 +8,6 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 
-
 public class CaptureFileTimestampRemover
 {
 
@@ -25,7 +24,7 @@ public class CaptureFileTimestampRemover
 		{
 			in = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile), "US-ASCII"));
 			out = new PrintStream(new FileOutputStream(OutputFile), true, "US-ASCII");
-			
+
 			while (true)
 			{
 				String line = null;
@@ -34,12 +33,13 @@ public class CaptureFileTimestampRemover
 					line = in.readLine();
 				}
 				catch (IOException e)
-				{					
+				{
 				}
-				if (line == null) break;
-				
+				if (line == null)
+					break;
+
 				line = line.replaceAll("\"(.{19})\",", "");
-				if (line.startsWith("$")) 
+				if (line.startsWith("$"))
 					out.println(line);
 			}
 		}

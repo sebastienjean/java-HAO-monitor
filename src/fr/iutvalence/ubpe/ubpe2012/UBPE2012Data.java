@@ -16,9 +16,10 @@ public class UBPE2012Data implements Serializable
 			"bearingGPS", "resets", "frameNumber", "flightloop", "tempIn", "tempOut", "pressure", "bearing", "hygro", "lux1", "lux2", "lux3", "lux4",
 			"voltage", "dateLoc", "requests" };
 
-	public final static String[] FRAME_TOKENS_REGEX = { null, "(\\d{6})|(^$)", "(\\d{4}.\\d{5}(N|S))|(^$)", "(\\d{5}.\\d{5}(E|O|W))|(^$)", "((-)?\\d{1,5}.\\d)|(^$)",
-			"(\\d|[A-F]){2}", "(V|A)|(^$)", "(\\d{1,2})|(^$)", "(\\d{1,3}.\\d)|(^$)", "(\\d{1,3}.\\d)|(^$)", "\\d{1,5}", "\\d{1,5}", "\\d{1,5}", "(\\d{1,4})|(^$)", "(\\d{1,4})|(^$)", "(\\d{1,4})|(^$)",
-			"(\\d{1,4})|(^$)", "(\\d{1,4})|(^$)", "(\\d{1,4})|(^$)", "(\\d{1,4})|(^$)", "(\\d{1,4})|(^$)", "(\\d{1,4})|(^$)", "(\\d{1,4})|(^$)", "(\\d{6})|(^$)", "(\\d{1,4})|(^$)" };
+	public final static String[] FRAME_TOKENS_REGEX = { null, "(\\d{6})|(^$)", "(\\d{4}.\\d{5}(N|S))|(^$)", "(\\d{5}.\\d{5}(E|O|W))|(^$)",
+			"((-)?\\d{1,5}.\\d)|(^$)", "(\\d|[A-F]){2}", "(V|A)|(^$)", "(\\d{1,2})|(^$)", "(\\d{1,3}.\\d)|(^$)", "(\\d{1,3}.\\d)|(^$)", "\\d{1,5}", "\\d{1,5}",
+			"\\d{1,5}", "(\\d{1,4})|(^$)", "(\\d{1,4})|(^$)", "(\\d{1,4})|(^$)", "(\\d{1,4})|(^$)", "(\\d{1,4})|(^$)", "(\\d{1,4})|(^$)", "(\\d{1,4})|(^$)",
+			"(\\d{1,4})|(^$)", "(\\d{1,4})|(^$)", "(\\d{1,4})|(^$)", "(\\d{6})|(^$)", "(\\d{1,4})|(^$)" };
 
 	private final byte[] rawFrame;
 
@@ -26,9 +27,9 @@ public class UBPE2012Data implements Serializable
 
 	/*
 	 * ObjectName dateGPS; latitudeGPS; longitudeGPS; altitudeGPS; checksumGPS;
-	 * fixGPS; numSatGPS; speedGPS; bearingGPS; resetCounter; frameNumber; flightloop
-	 * temperatureIn; temperatureOut; pressure; bearing; hygro; lux1; lux2; lux3;
-	 * lux4; voltage; dateLoc; requests;
+	 * fixGPS; numSatGPS; speedGPS; bearingGPS; resetCounter; frameNumber;
+	 * flightloop temperatureIn; temperatureOut; pressure; bearing; hygro; lux1;
+	 * lux2; lux3; lux4; voltage; dateLoc; requests;
 	 */
 
 	public UBPE2012Data(byte[] ubpeFrame) throws MalformedFrameException
@@ -38,7 +39,7 @@ public class UBPE2012Data implements Serializable
 		{
 			ubpeString = new String(ubpeFrame, "US-ASCII");
 			// TODO remove debug info
-			System.out.println("--- "+ubpeString);
+			System.out.println("--- " + ubpeString);
 		}
 		catch (UnsupportedEncodingException e)
 		{
@@ -49,7 +50,7 @@ public class UBPE2012Data implements Serializable
 		if (this.frameTokens.length != FRAME_TOKENS_NAMES.length)
 		{
 			// TODO remove debug
-			System.err.println("--- expected "+FRAME_TOKENS_NAMES.length+", found "+this.frameTokens.length+" tokens");
+			System.err.println("--- expected " + FRAME_TOKENS_NAMES.length + ", found " + this.frameTokens.length + " tokens");
 			throw new MalformedFrameException();
 		}
 		if (!this.isValidData())

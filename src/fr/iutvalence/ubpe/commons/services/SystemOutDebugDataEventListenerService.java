@@ -7,7 +7,7 @@ public class SystemOutDebugDataEventListenerService extends AbstractDataEventLis
 {
 	@Override
 	protected void onTakingEvent(DataEvent event)
-	{	
+	{
 		System.out.println("<debug-service>: starting event processing");
 		System.out.println("<---------DEBUG--------->");
 		System.out.println(event);

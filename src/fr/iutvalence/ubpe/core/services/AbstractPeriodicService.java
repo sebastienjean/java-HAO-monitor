@@ -1,12 +1,11 @@
 package fr.iutvalence.ubpe.core.services;
 
-
 /**
  * Helper implementation of a service.
  * 
  * 
  * @author sebastienjean
- *
+ * 
  */
 public abstract class AbstractPeriodicService extends AbstractService
 {
@@ -15,21 +14,25 @@ public abstract class AbstractPeriodicService extends AbstractService
 	 * Service's delay between two invocations.
 	 */
 	private final long period;
-	
+
 	/**
-	 * Creating a <tt>AbstractPeriodicService</tt> instance, from a given period.
-	 * @param period service period.
+	 * Creating a <tt>AbstractPeriodicService</tt> instance, from a given
+	 * period.
+	 * 
+	 * @param period
+	 *            service period.
 	 */
 	public AbstractPeriodicService(long period)
-	{	
+	{
 		this.period = period;
 	}
 
 	/**
 	 * Returns service period.
+	 * 
 	 * @return service period
 	 */
-	public long getPeriod() 
+	public long getPeriod()
 	{
 		return this.period;
 	}
@@ -52,6 +55,6 @@ public abstract class AbstractPeriodicService extends AbstractService
 			{
 				continue;
 			}
-		}	
+		}
 	}
 }
