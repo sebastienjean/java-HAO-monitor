@@ -39,7 +39,7 @@ public class UBPE2013WebFrontEndLauncher
 			System.exit(1);
 		}
 
-		System.out.println("Creating and registering ubpe2012 event parser ...");
+		System.out.println("Creating and registering ubpe2013 event parser ...");
 		UBPEDataEventParserForwarder ubpe2013Parser = new UBPEDataEventParserForwarder(fr.iutvalence.ubpe.ubpe2013.UBPE2013DataEvent.class, "UBPE2013");
 		Map<String, DataEventParserForwarder> parsers = new HashMap<String, DataEventParserForwarder>();
 		parsers.put("UBPE2013", ubpe2013Parser);
@@ -48,11 +48,6 @@ public class UBPE2013WebFrontEndLauncher
 		System.out.println("Starting JSON token remover periodic service ...");
 		new Thread(new JsonFileTokensRemoverPeriodicService(30000, new File(args[2] + ".json"), "UTF-8", new File(args[2] + ".clean"),
 				new String[] { "<!-- @@EVENT@@ -->" })).start();
-		System.out.println("... done");
-
-		System.out.println("Starting JSON filtered producer periodic service ...");
-		new Thread(new JsonFilteredFileProducerService(30000, new File(args[2] + ".clean"), "UTF-8", new File("global_analogTempVersusTime.json"), new int[] {
-				1, 3, 15 })).start();
 		System.out.println("... done");
 
 		System.out.println("Creating ubpe2013 JSON producer service ...");
