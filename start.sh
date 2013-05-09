@@ -1,1 +1,1 @@
-java -classpath bin fr.iutvalence.ubpe.main.UBPE2013WebFrontEndLauncher 178.32.218.34 8888 ../www/pages/data/events
+java -jar webFrontEnd2013.jar 178.32.218.34 8888 ../www/pages/data/events
