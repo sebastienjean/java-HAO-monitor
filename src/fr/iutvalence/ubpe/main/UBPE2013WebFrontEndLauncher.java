@@ -24,6 +24,7 @@ public class UBPE2013WebFrontEndLauncher
 	 *            <li> <tt>args[0]</tt> server's IP (for incoming frames)</li>
 	 *            <li> <tt>args[1]</tt> server's port (for incoming frames)</li>
 	 *            <li> <tt>args[2]</tt> output JSON file path</li>
+	 *            <li> <tt>args[3]</tt> refresh delay (in seconds)</li>
 	 *            </ul>
 	 */
 	public static void main(String[] args)
@@ -31,11 +32,12 @@ public class UBPE2013WebFrontEndLauncher
 		// args[0] server's IP (for incoming frames)
 		// args[1] server's port (for incoming frames)
 		// args[2] output JSON file path
+		// args[3] refresh delay (in seconds)
 
-		if (args.length != 3)
+		if (args.length != 4)
 		{
 			System.err.println("Missing arguments, exiting...");
-			System.err.println("(expected IP and port for local binding)");
+			// System.err.println("(expected IP and port for local binding)");
 			System.exit(1);
 		}
 
@@ -46,7 +48,7 @@ public class UBPE2013WebFrontEndLauncher
 		System.out.println("... done");
 
 		System.out.println("Starting JSON token remover periodic service ...");
-		new Thread(new JsonFileTokensRemoverPeriodicService(30000, new File(args[2] + ".json"), "UTF-8", new File(args[2] + ".clean"),
+		new Thread(new JsonFileTokensRemoverPeriodicService(Integer.parseInt(args[3])*1000, new File(args[2] + ".json"), "UTF-8", new File(args[2] + ".clean"),
 				new String[] { "<!-- @@EVENT@@ -->" })).start();
 		System.out.println("... done");
 
