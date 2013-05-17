@@ -102,7 +102,7 @@ public class UBPE2013SerialRadioRelayClientLocalAndRemotewithLocalStorage
 		System.out.println("... done");
 		
 		System.out.println("Creating local Web frontend exporter service ...");
-		WebFrontEndExporterDataEventListenerService localExporterService = new WebFrontEndExporterDataEventListenerService(new InetSocketAddress(Integer.parseInt(args[3])));
+		WebFrontEndExporterDataEventListenerService localExporterService = new WebFrontEndExporterDataEventListenerService(new InetSocketAddress("127.0.0.1", Integer.parseInt(args[3])));
 		System.out.println("... done");
 
 		System.out.println("Registering console debug service as a parser listener ...");
