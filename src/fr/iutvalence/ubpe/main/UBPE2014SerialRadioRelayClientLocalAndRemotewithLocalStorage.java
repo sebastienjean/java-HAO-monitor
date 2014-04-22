@@ -72,7 +72,7 @@ public class UBPE2014SerialRadioRelayClientLocalAndRemotewithLocalStorage
 		System.out.println("... done");
 
 		System.out.println("Creating and registering ubpe2014 event parser ...");
-		UBPEDataEventParserForwarder ubpe2014Parser = new UBPEDataEventParserForwarder(fr.iutvalence.ubpe.ubpe2014.UBPE2014DataEvent.class, "UBPE2013");
+		UBPEDataEventParserForwarder ubpe2014Parser = new UBPEDataEventParserForwarder(fr.iutvalence.ubpe.ubpe2014.UBPE2014DataEvent.class, "UBPE2014");
 		Map<String, DataEventParserForwarder> parsers = new HashMap<String, DataEventParserForwarder>();
 		parsers.put("UBPE2014", ubpe2014Parser);
 		System.out.println("... done");
