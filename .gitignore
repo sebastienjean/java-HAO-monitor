@@ -1,10 +1,5 @@
 /bin
-/Baz-IUT
 /events.clean
 /events.old
-/global_analogTempVersusTime.json
-/IUT-Radio
-/lib
 /events.json
-/UBPE2013TestFrames.txt
 /data
