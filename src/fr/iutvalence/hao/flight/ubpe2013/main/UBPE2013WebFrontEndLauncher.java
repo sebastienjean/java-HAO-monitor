@@ -1,4 +1,4 @@
-package fr.iutvalence.ubpe.main;
+package fr.iutvalence.hao.flight.ubpe2013.main;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,12 +6,12 @@ import java.net.InetSocketAddress;
 import java.util.HashMap;
 import java.util.Map;
 
+import fr.iutvalence.hao.flight.ubpe2013.services.UBPE2013JsonProducerDataEventListenerService;
 import fr.iutvalence.hao.monitor.commons.services.JsonFileTokensRemoverPeriodicService;
 import fr.iutvalence.hao.monitor.commons.services.JsonFilteredFileProducerService;
 import fr.iutvalence.hao.monitor.commons.services.WebFrontEndWelcomeService;
 import fr.iutvalence.hao.monitor.core.helpers.UBPEDataEventParserForwarder;
 import fr.iutvalence.hao.monitor.core.interfaces.DataEventParserForwarder;
-import fr.iutvalence.ubpe.ubpe2013.services.UBPE2013JsonProducerDataEventListenerService;
 
 public class UBPE2013WebFrontEndLauncher
 {
@@ -42,7 +42,7 @@ public class UBPE2013WebFrontEndLauncher
 		}
 
 		System.out.println("Creating and registering ubpe2013 event parser ...");
-		UBPEDataEventParserForwarder ubpe2013Parser = new UBPEDataEventParserForwarder(fr.iutvalence.ubpe.ubpe2013.UBPE2013DataEvent.class, "UBPE2013");
+		UBPEDataEventParserForwarder ubpe2013Parser = new UBPEDataEventParserForwarder(fr.iutvalence.hao.flight.ubpe2013.data.UBPE2013DataEvent.class, "UBPE2013");
 		Map<String, DataEventParserForwarder> parsers = new HashMap<String, DataEventParserForwarder>();
 		parsers.put("UBPE2013", ubpe2013Parser);
 		System.out.println("... done");

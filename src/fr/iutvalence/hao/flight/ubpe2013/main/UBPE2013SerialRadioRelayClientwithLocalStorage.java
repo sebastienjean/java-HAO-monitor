@@ -1,4 +1,4 @@
-package fr.iutvalence.ubpe.main;
+package fr.iutvalence.hao.flight.ubpe2013.main;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -19,7 +19,7 @@ import gnu.io.NoSuchPortException;
 import gnu.io.PortInUseException;
 import gnu.io.UnsupportedCommOperationException;
 
-public class UBPE2013SerialRadioRelayClientLocalAndRemotewithLocalStorage
+public class UBPE2013SerialRadioRelayClientwithLocalStorage
 {
 
 	/**
@@ -72,7 +72,7 @@ public class UBPE2013SerialRadioRelayClientLocalAndRemotewithLocalStorage
 		System.out.println("... done");
 
 		System.out.println("Creating and registering ubpe2013 event parser ...");
-		UBPEDataEventParserForwarder ubpe2013Parser = new UBPEDataEventParserForwarder(fr.iutvalence.ubpe.ubpe2013.UBPE2013DataEvent.class, "UBPE2013");
+		UBPEDataEventParserForwarder ubpe2013Parser = new UBPEDataEventParserForwarder(fr.iutvalence.hao.flight.ubpe2013.data.UBPE2013DataEvent.class, "UBPE2013");
 		Map<String, DataEventParserForwarder> parsers = new HashMap<String, DataEventParserForwarder>();
 		parsers.put("UBPE2013", ubpe2013Parser);
 		System.out.println("... done");
@@ -96,13 +96,9 @@ public class UBPE2013SerialRadioRelayClientLocalAndRemotewithLocalStorage
 		}
 		System.out.println("... done");
 
-		System.out.println("Creating remote Web frontend exporter service ...");
-		WebFrontEndExporterDataEventListenerService remoteExporterService = new WebFrontEndExporterDataEventListenerService(new InetSocketAddress(args[2],
+		System.out.println("Creating Web frontend exporter service ...");
+		WebFrontEndExporterDataEventListenerService exporterService = new WebFrontEndExporterDataEventListenerService(new InetSocketAddress(args[2],
 				Integer.parseInt(args[3])));
-		System.out.println("... done");
-		
-		System.out.println("Creating local Web frontend exporter service ...");
-		WebFrontEndExporterDataEventListenerService localExporterService = new WebFrontEndExporterDataEventListenerService(new InetSocketAddress("127.0.0.1", Integer.parseInt(args[3])));
 		System.out.println("... done");
 
 		System.out.println("Registering console debug service as a parser listener ...");
@@ -113,12 +109,8 @@ public class UBPE2013SerialRadioRelayClientLocalAndRemotewithLocalStorage
 		ubpe2013Parser.registerDataEventListener(storageService);
 		System.out.println("... done");
 
-		System.out.println("Registering remote Web frontend exporter service as a parser listener ...");
-		ubpe2013Parser.registerDataEventListener(remoteExporterService);
-		System.out.println("... done");
-		
-		System.out.println("Registering local Web frontend exporter service as a parser listener ...");
-		ubpe2013Parser.registerDataEventListener(localExporterService);
+		System.out.println("Registering Web frontend exporter service as a parser listener ...");
+		ubpe2013Parser.registerDataEventListener(exporterService);
 		System.out.println("... done");
 
 		System.out.println("Starting console debug service ...");
@@ -129,12 +121,8 @@ public class UBPE2013SerialRadioRelayClientLocalAndRemotewithLocalStorage
 		new Thread(storageService).start();
 		System.out.println("... done");
 
-		System.out.println("Starting remote Web frontend exporter service ...");
-		new Thread(remoteExporterService).start();
-		System.out.println("... done");
-		
-		System.out.println("Starting local Web frontend exporter service ...");
-		new Thread(localExporterService).start();
+		System.out.println("Starting Web frontend exporter service ...");
+		new Thread(exporterService).start();
 		System.out.println("... done");
 
 		System.out.println("Starting serial event reader service ...");

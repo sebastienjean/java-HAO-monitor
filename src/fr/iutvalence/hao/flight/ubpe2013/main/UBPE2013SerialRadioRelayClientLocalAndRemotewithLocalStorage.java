@@ -1,4 +1,4 @@
-package fr.iutvalence.ubpe.main;
+package fr.iutvalence.hao.flight.ubpe2013.main;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,12 +11,15 @@ import fr.iutvalence.hao.monitor.commons.services.RawFileSystemStorageDataEventL
 import fr.iutvalence.hao.monitor.commons.services.SystemOutDebugDataEventListenerService;
 import fr.iutvalence.hao.monitor.commons.services.UBPEInputStreamDataEventReaderService;
 import fr.iutvalence.hao.monitor.commons.services.WebFrontEndExporterDataEventListenerService;
-import fr.iutvalence.hao.monitor.core.helpers.AsciiDumpFileReplayInputStream;
 import fr.iutvalence.hao.monitor.core.helpers.RawDataEventFileSystemStorage;
+import fr.iutvalence.hao.monitor.core.helpers.Serial600InputStream;
 import fr.iutvalence.hao.monitor.core.helpers.UBPEDataEventParserForwarder;
 import fr.iutvalence.hao.monitor.core.interfaces.DataEventParserForwarder;
+import gnu.io.NoSuchPortException;
+import gnu.io.PortInUseException;
+import gnu.io.UnsupportedCommOperationException;
 
-public class UBPE2013ReplayRelayClientwithLocalStorage
+public class UBPE2013SerialRadioRelayClientLocalAndRemotewithLocalStorage
 {
 
 	/**
@@ -26,7 +29,7 @@ public class UBPE2013ReplayRelayClientwithLocalStorage
 	public static void main(String[] args)
 	{
 		// args[0] station name
-		// args[1] replay file path
+		// args[1] serial port identifier
 		// args[2] relay server IP
 		// args[3] relay server port
 		// args[4] object name
@@ -39,23 +42,37 @@ public class UBPE2013ReplayRelayClientwithLocalStorage
 		}
 
 		// files are stored in current directory, under "station name" subfolder
-		System.out.println("Opening replay file (" + args[1] + ") ...");
-		AsciiDumpFileReplayInputStream in = null;
+		System.out.println("Trying to configure serial port " + args[1] + " ...");
+		Serial600InputStream in = null;
 
 		try
 		{
-			in = new AsciiDumpFileReplayInputStream(new File(args[1]), "US-ASCII", 2000);
+			in = new Serial600InputStream(args[1]);
+		}
+		catch (PortInUseException e)
+		{
+			System.err.println("Serial port is already in use, please close it before running this application again");
+			System.exit(1);
+		}
+		catch (NoSuchPortException e)
+		{
+			System.err.println("Specified port (" + args[1] + ") does not exist, please check serial port name before running this application again");
+			System.exit(1);
+		}
+		catch (UnsupportedCommOperationException e)
+		{
+			System.err.println("Specified port (" + args[1] + ") can not be configured properly, please check it before running this application again");
+			System.exit(1);
 		}
 		catch (IOException e)
 		{
-			System.err.println("Replay file not found");
+			System.err.println("Unable to read from specified port (" + args[1] + "), please check it before running this application again");
 			System.exit(1);
 		}
-		new Thread(in).start();
 		System.out.println("... done");
 
 		System.out.println("Creating and registering ubpe2013 event parser ...");
-		UBPEDataEventParserForwarder ubpe2013Parser = new UBPEDataEventParserForwarder(fr.iutvalence.ubpe.ubpe2013.UBPE2013DataEvent.class, "UBPE2013");
+		UBPEDataEventParserForwarder ubpe2013Parser = new UBPEDataEventParserForwarder(fr.iutvalence.hao.flight.ubpe2013.data.UBPE2013DataEvent.class, "UBPE2013");
 		Map<String, DataEventParserForwarder> parsers = new HashMap<String, DataEventParserForwarder>();
 		parsers.put("UBPE2013", ubpe2013Parser);
 		System.out.println("... done");
@@ -79,9 +96,13 @@ public class UBPE2013ReplayRelayClientwithLocalStorage
 		}
 		System.out.println("... done");
 
-		System.out.println("Creating Web frontend exporter service ...");
-		WebFrontEndExporterDataEventListenerService exporterService = new WebFrontEndExporterDataEventListenerService(new InetSocketAddress(args[2],
+		System.out.println("Creating remote Web frontend exporter service ...");
+		WebFrontEndExporterDataEventListenerService remoteExporterService = new WebFrontEndExporterDataEventListenerService(new InetSocketAddress(args[2],
 				Integer.parseInt(args[3])));
+		System.out.println("... done");
+		
+		System.out.println("Creating local Web frontend exporter service ...");
+		WebFrontEndExporterDataEventListenerService localExporterService = new WebFrontEndExporterDataEventListenerService(new InetSocketAddress("127.0.0.1", Integer.parseInt(args[3])));
 		System.out.println("... done");
 
 		System.out.println("Registering console debug service as a parser listener ...");
@@ -92,8 +113,12 @@ public class UBPE2013ReplayRelayClientwithLocalStorage
 		ubpe2013Parser.registerDataEventListener(storageService);
 		System.out.println("... done");
 
-		System.out.println("Registering Web frontend exporter service as a parser listener ...");
-		ubpe2013Parser.registerDataEventListener(exporterService);
+		System.out.println("Registering remote Web frontend exporter service as a parser listener ...");
+		ubpe2013Parser.registerDataEventListener(remoteExporterService);
+		System.out.println("... done");
+		
+		System.out.println("Registering local Web frontend exporter service as a parser listener ...");
+		ubpe2013Parser.registerDataEventListener(localExporterService);
 		System.out.println("... done");
 
 		System.out.println("Starting console debug service ...");
@@ -104,11 +129,15 @@ public class UBPE2013ReplayRelayClientwithLocalStorage
 		new Thread(storageService).start();
 		System.out.println("... done");
 
-		System.out.println("Starting Web frontend exporter service ...");
-		new Thread(exporterService).start();
+		System.out.println("Starting remote Web frontend exporter service ...");
+		new Thread(remoteExporterService).start();
+		System.out.println("... done");
+		
+		System.out.println("Starting local Web frontend exporter service ...");
+		new Thread(localExporterService).start();
 		System.out.println("... done");
 
-		System.out.println("Starting replay event reader service ...");
+		System.out.println("Starting serial event reader service ...");
 		UBPEInputStreamDataEventReaderService readerService = new UBPEInputStreamDataEventReaderService(in, parsers, "UBPE2013", args[0]);
 		new Thread(readerService).start();
 		System.out.println("... done");
