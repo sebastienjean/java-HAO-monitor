@@ -1,4 +1,4 @@
-package fr.iutvalence.ubpe.main;
+package fr.iutvalence.hao.flight.ubpe2014.main;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,15 +11,12 @@ import fr.iutvalence.hao.monitor.commons.services.RawFileSystemStorageDataEventL
 import fr.iutvalence.hao.monitor.commons.services.SystemOutDebugDataEventListenerService;
 import fr.iutvalence.hao.monitor.commons.services.UBPEInputStreamDataEventReaderService;
 import fr.iutvalence.hao.monitor.commons.services.WebFrontEndExporterDataEventListenerService;
+import fr.iutvalence.hao.monitor.core.helpers.AsciiDumpFileReplayInputStream;
 import fr.iutvalence.hao.monitor.core.helpers.RawDataEventFileSystemStorage;
-import fr.iutvalence.hao.monitor.core.helpers.Serial600InputStream;
 import fr.iutvalence.hao.monitor.core.helpers.UBPEDataEventParserForwarder;
 import fr.iutvalence.hao.monitor.core.interfaces.DataEventParserForwarder;
-import gnu.io.NoSuchPortException;
-import gnu.io.PortInUseException;
-import gnu.io.UnsupportedCommOperationException;
 
-public class UBPE2014SerialRadioRelayClientwithLocalStorage
+public class UBPE2014ReplayRelayClientwithLocalStorage
 {
 
 	/**
@@ -29,7 +26,7 @@ public class UBPE2014SerialRadioRelayClientwithLocalStorage
 	public static void main(String[] args)
 	{
 		// args[0] station name
-		// args[1] serial port identifier
+		// args[1] replay file path
 		// args[2] relay server IP
 		// args[3] relay server port
 		// args[4] object name
@@ -42,37 +39,23 @@ public class UBPE2014SerialRadioRelayClientwithLocalStorage
 		}
 
 		// files are stored in current directory, under "station name" subfolder
-		System.out.println("Trying to configure serial port " + args[1] + " ...");
-		Serial600InputStream in = null;
+		System.out.println("Opening replay file (" + args[1] + ") ...");
+		AsciiDumpFileReplayInputStream in = null;
 
 		try
 		{
-			in = new Serial600InputStream(args[1]);
-		}
-		catch (PortInUseException e)
-		{
-			System.err.println("Serial port is already in use, please close it before running this application again");
-			System.exit(1);
-		}
-		catch (NoSuchPortException e)
-		{
-			System.err.println("Specified port (" + args[1] + ") does not exist, please check serial port name before running this application again");
-			System.exit(1);
-		}
-		catch (UnsupportedCommOperationException e)
-		{
-			System.err.println("Specified port (" + args[1] + ") can not be configured properly, please check it before running this application again");
-			System.exit(1);
+			in = new AsciiDumpFileReplayInputStream(new File(args[1]), "US-ASCII", 2000);
 		}
 		catch (IOException e)
 		{
-			System.err.println("Unable to read from specified port (" + args[1] + "), please check it before running this application again");
+			System.err.println("Replay file not found");
 			System.exit(1);
 		}
+		new Thread(in).start();
 		System.out.println("... done");
 
-		System.out.println("Creating and registering ubpe2013 event parser ...");
-		UBPEDataEventParserForwarder ubpe2014Parser = new UBPEDataEventParserForwarder(fr.iutvalence.ubpe.ubpe2014.UBPE2014DataEvent.class, "UBPE2014");
+		System.out.println("Creating and registering ubpe2014 event parser ...");
+		UBPEDataEventParserForwarder ubpe2014Parser = new UBPEDataEventParserForwarder(fr.iutvalence.hao.flight.ubpe2014.data.UBPE2014DataEvent.class, "UBPE2013");
 		Map<String, DataEventParserForwarder> parsers = new HashMap<String, DataEventParserForwarder>();
 		parsers.put("UBPE2014", ubpe2014Parser);
 		System.out.println("... done");
@@ -125,7 +108,7 @@ public class UBPE2014SerialRadioRelayClientwithLocalStorage
 		new Thread(exporterService).start();
 		System.out.println("... done");
 
-		System.out.println("Starting serial event reader service ...");
+		System.out.println("Starting replay event reader service ...");
 		UBPEInputStreamDataEventReaderService readerService = new UBPEInputStreamDataEventReaderService(in, parsers, "UBPE2014", args[0]);
 		new Thread(readerService).start();
 		System.out.println("... done");

@@ -1,12 +1,12 @@
-package fr.iutvalence.ubpe.ubpe2014.services;
+package fr.iutvalence.hao.flight.ubpe2014.services;
 
 // TODO abstract this to reuse across different experiment instances
 import java.io.File;
 
+import fr.iutvalence.hao.flight.ubpe2014.data.UBPE2014Data;
+import fr.iutvalence.hao.flight.ubpe2014.data.UBPE2014DataEvent;
 import fr.iutvalence.hao.monitor.core.interfaces.DataEvent;
 import fr.iutvalence.hao.monitor.core.services.AbstractFileBuilderDataEventListenerService;
-import fr.iutvalence.ubpe.ubpe2014.UBPE2014Data;
-import fr.iutvalence.ubpe.ubpe2014.UBPE2014DataEvent;
 
 public class UBPE2014JsonProducerDataEventListenerService extends AbstractFileBuilderDataEventListenerService
 {

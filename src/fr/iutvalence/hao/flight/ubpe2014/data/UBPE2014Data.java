@@ -1,4 +1,4 @@
-package fr.iutvalence.ubpe.ubpe2014;
+package fr.iutvalence.hao.flight.ubpe2014.data;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
