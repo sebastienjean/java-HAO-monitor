@@ -1,4 +1,4 @@
-package fr.iutvalence.ubpe.main;
+package fr.iutvalence.hao.flight.ubpe2011.main;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,7 +40,7 @@ public class UBPE2011WebFrontEndLauncher
 		}
 
 		System.out.println("Creating and registering ubpe2011 event parser ...");
-		UBPEDataEventParserForwarder ubpe2011Parser = new UBPEDataEventParserForwarder(fr.iutvalence.ubpe.ubpe2011.UBPE2011DataEvent.class, "UBPE2011");
+		UBPEDataEventParserForwarder ubpe2011Parser = new UBPEDataEventParserForwarder(fr.iutvalence.hao.flight.ubpe2011.data.UBPE2011DataEvent.class, "UBPE2011");
 		Map<String, DataEventParserForwarder> parsers = new HashMap<String, DataEventParserForwarder>();
 		parsers.put("UBPE2011", ubpe2011Parser);
 		System.out.println("... done");

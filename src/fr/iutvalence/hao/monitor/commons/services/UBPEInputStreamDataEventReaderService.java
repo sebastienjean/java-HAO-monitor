@@ -9,13 +9,13 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 
+import fr.iutvalence.hao.flight.ubpe2011.data.UBPE2011DataEvent;
 import fr.iutvalence.hao.monitor.core.events.DefaultMetadataField;
 import fr.iutvalence.hao.monitor.core.exceptions.ParsingException;
 import fr.iutvalence.hao.monitor.core.interfaces.DataEvent;
 import fr.iutvalence.hao.monitor.core.interfaces.DataEventParserForwarder;
 import fr.iutvalence.hao.monitor.core.interfaces.MetadataField;
 import fr.iutvalence.hao.monitor.core.services.AbstractService;
-import fr.iutvalence.ubpe.ubpe2011.UBPE2011DataEvent;
 
 public class UBPEInputStreamDataEventReaderService extends AbstractService
 {
