@@ -7,14 +7,14 @@ import java.net.InetSocketAddress;
 import java.util.HashMap;
 import java.util.Map;
 
-import fr.iutvalence.ubpe.commons.services.RawFileSystemStorageDataEventListenerService;
-import fr.iutvalence.ubpe.commons.services.SystemOutDebugDataEventListenerService;
-import fr.iutvalence.ubpe.commons.services.UBPEInputStreamDataEventReaderService;
-import fr.iutvalence.ubpe.commons.services.WebFrontEndExporterDataEventListenerService;
-import fr.iutvalence.ubpe.core.helpers.AsciiDumpFileReplayInputStream;
-import fr.iutvalence.ubpe.core.helpers.RawDataEventFileSystemStorage;
-import fr.iutvalence.ubpe.core.helpers.UBPEDataEventParserForwarder;
-import fr.iutvalence.ubpe.core.interfaces.DataEventParserForwarder;
+import fr.iutvalence.hao.monitor.commons.services.RawFileSystemStorageDataEventListenerService;
+import fr.iutvalence.hao.monitor.commons.services.SystemOutDebugDataEventListenerService;
+import fr.iutvalence.hao.monitor.commons.services.UBPEInputStreamDataEventReaderService;
+import fr.iutvalence.hao.monitor.commons.services.WebFrontEndExporterDataEventListenerService;
+import fr.iutvalence.hao.monitor.core.helpers.AsciiDumpFileReplayInputStream;
+import fr.iutvalence.hao.monitor.core.helpers.RawDataEventFileSystemStorage;
+import fr.iutvalence.hao.monitor.core.helpers.UBPEDataEventParserForwarder;
+import fr.iutvalence.hao.monitor.core.interfaces.DataEventParserForwarder;
 
 public class UBPE2014ReplayRelayClientwithLocalStorage
 {

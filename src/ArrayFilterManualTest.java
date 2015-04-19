@@ -33,8 +33,8 @@ import java.util.Map;
 
 import org.json.JSONException;
 
-import fr.iutvalence.ubpe.misc.AffTransform;
-import fr.iutvalence.ubpe.misc.ArrayFilter;
+import fr.iutvalence.hao.monitor.misc.AffTransform;
+import fr.iutvalence.hao.monitor.misc.ArrayFilter;
 
 /**
  * Minimal manual test.

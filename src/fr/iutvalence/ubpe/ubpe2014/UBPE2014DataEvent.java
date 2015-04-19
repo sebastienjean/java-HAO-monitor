@@ -3,12 +3,12 @@ package fr.iutvalence.ubpe.ubpe2014;
 import java.util.HashMap;
 import java.util.Map;
 
-import fr.iutvalence.ubpe.core.events.AbstractDataEvent;
-import fr.iutvalence.ubpe.core.events.DefaultMetadataField;
-import fr.iutvalence.ubpe.core.exceptions.MalformedFrameException;
-import fr.iutvalence.ubpe.core.exceptions.ParsingException;
-import fr.iutvalence.ubpe.core.helpers.AbstractFileSystemStorage;
-import fr.iutvalence.ubpe.core.interfaces.MetadataField;
+import fr.iutvalence.hao.monitor.core.events.AbstractDataEvent;
+import fr.iutvalence.hao.monitor.core.events.DefaultMetadataField;
+import fr.iutvalence.hao.monitor.core.exceptions.MalformedFrameException;
+import fr.iutvalence.hao.monitor.core.exceptions.ParsingException;
+import fr.iutvalence.hao.monitor.core.helpers.AbstractFileSystemStorage;
+import fr.iutvalence.hao.monitor.core.interfaces.MetadataField;
 
 public class UBPE2014DataEvent extends AbstractDataEvent
 {

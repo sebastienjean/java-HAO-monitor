@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.util.regex.Pattern;
 
-import fr.iutvalence.ubpe.core.exceptions.MalformedFrameException;
+import fr.iutvalence.hao.monitor.core.exceptions.MalformedFrameException;
 
 public class UBPE2013Data implements Serializable
 {

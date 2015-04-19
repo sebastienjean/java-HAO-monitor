@@ -6,11 +6,11 @@ import java.net.InetSocketAddress;
 import java.util.HashMap;
 import java.util.Map;
 
-import fr.iutvalence.ubpe.commons.services.JsonFileTokensRemoverPeriodicService;
-import fr.iutvalence.ubpe.commons.services.JsonFilteredFileProducerService;
-import fr.iutvalence.ubpe.commons.services.WebFrontEndWelcomeService;
-import fr.iutvalence.ubpe.core.helpers.UBPEDataEventParserForwarder;
-import fr.iutvalence.ubpe.core.interfaces.DataEventParserForwarder;
+import fr.iutvalence.hao.monitor.commons.services.JsonFileTokensRemoverPeriodicService;
+import fr.iutvalence.hao.monitor.commons.services.JsonFilteredFileProducerService;
+import fr.iutvalence.hao.monitor.commons.services.WebFrontEndWelcomeService;
+import fr.iutvalence.hao.monitor.core.helpers.UBPEDataEventParserForwarder;
+import fr.iutvalence.hao.monitor.core.interfaces.DataEventParserForwarder;
 import fr.iutvalence.ubpe.ubpe2013.services.UBPE2013JsonProducerDataEventListenerService;
 
 public class UBPE2013WebFrontEndLauncher

@@ -3,8 +3,8 @@ package fr.iutvalence.ubpe.ubpe2013.services;
 // TODO abstract this to reuse across different experiment instances
 import java.io.File;
 
-import fr.iutvalence.ubpe.core.interfaces.DataEvent;
-import fr.iutvalence.ubpe.core.services.AbstractFileBuilderDataEventListenerService;
+import fr.iutvalence.hao.monitor.core.interfaces.DataEvent;
+import fr.iutvalence.hao.monitor.core.services.AbstractFileBuilderDataEventListenerService;
 import fr.iutvalence.ubpe.ubpe2013.UBPE2013Data;
 import fr.iutvalence.ubpe.ubpe2013.UBPE2013DataEvent;
 
