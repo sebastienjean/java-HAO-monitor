@@ -3,9 +3,9 @@ package fr.iutvalence.ubpe.commons.services;
 import java.io.File;
 import java.util.HashMap;
 
-import fr.iutvalence.json.AffTransform;
-import fr.iutvalence.json.ArrayFilter;
 import fr.iutvalence.ubpe.core.services.AbstractTextFileTransformationPeriodicService;
+import fr.iutvalence.ubpe.misc.AffTransform;
+import fr.iutvalence.ubpe.misc.ArrayFilter;
 
 public class JsonFilteredFileProducerService extends AbstractTextFileTransformationPeriodicService
 {

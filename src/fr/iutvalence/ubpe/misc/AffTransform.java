@@ -25,7 +25,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.       *
  ******************************************************************************/
 
-package fr.iutvalence.json;
+package fr.iutvalence.ubpe.misc;
 
 /**
  * Affine Transformation (y = Ax+B).
