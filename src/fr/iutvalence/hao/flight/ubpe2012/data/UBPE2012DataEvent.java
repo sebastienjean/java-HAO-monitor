@@ -1,4 +1,4 @@
-package fr.iutvalence.ubpe.ubpe2012;
+package fr.iutvalence.hao.flight.ubpe2012.data;
 
 import java.util.HashMap;
 import java.util.Map;

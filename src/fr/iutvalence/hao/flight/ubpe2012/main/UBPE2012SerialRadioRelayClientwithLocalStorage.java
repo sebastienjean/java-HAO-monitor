@@ -1,4 +1,4 @@
-package fr.iutvalence.ubpe.main;
+package fr.iutvalence.hao.flight.ubpe2012.main;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -72,7 +72,7 @@ public class UBPE2012SerialRadioRelayClientwithLocalStorage
 		System.out.println("... done");
 
 		System.out.println("Creating and registering ubpe2012 event parser ...");
-		UBPEDataEventParserForwarder ubpe2012Parser = new UBPEDataEventParserForwarder(fr.iutvalence.ubpe.ubpe2012.UBPE2012DataEvent.class, "UBPE2012");
+		UBPEDataEventParserForwarder ubpe2012Parser = new UBPEDataEventParserForwarder(fr.iutvalence.hao.flight.ubpe2012.data.UBPE2012DataEvent.class, "UBPE2012");
 		Map<String, DataEventParserForwarder> parsers = new HashMap<String, DataEventParserForwarder>();
 		parsers.put("UBPE2012", ubpe2012Parser);
 		System.out.println("... done");

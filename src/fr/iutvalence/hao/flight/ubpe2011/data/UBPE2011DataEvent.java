@@ -3,13 +3,13 @@ package fr.iutvalence.hao.flight.ubpe2011.data;
 import java.util.HashMap;
 import java.util.Map;
 
+import fr.iutvalence.hao.flight.ubpe2012.data.UBPE2012Data;
 import fr.iutvalence.hao.monitor.core.events.AbstractDataEvent;
 import fr.iutvalence.hao.monitor.core.events.DefaultMetadataField;
 import fr.iutvalence.hao.monitor.core.exceptions.MalformedFrameException;
 import fr.iutvalence.hao.monitor.core.exceptions.ParsingException;
 import fr.iutvalence.hao.monitor.core.helpers.AbstractFileSystemStorage;
 import fr.iutvalence.hao.monitor.core.interfaces.MetadataField;
-import fr.iutvalence.ubpe.ubpe2012.UBPE2012Data;
 
 public class UBPE2011DataEvent extends AbstractDataEvent
 {
