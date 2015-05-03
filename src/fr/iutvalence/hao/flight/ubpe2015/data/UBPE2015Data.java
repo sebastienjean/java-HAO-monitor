@@ -17,20 +17,41 @@ public class UBPE2015Data implements Serializable
 		{ 
 			"objectName", "frameCounter", "resetCounter", "secondsSinceLastReset", "timeRTC", 
 			"timeGPS", "fixGPS", "longGPS", "latGPS", "altGPS", 
-			"speedGPS", "courseGPS", "numSatsGPS", "hdopGPS", "internalTemperatureAnalogSensor", 
-			"externalTemperatureAnalogSensor", "middleTemperatureAnalogSensor", "externalHumidityAnalogSensor", "differentialPressureAnalogSensor", "xAccelerationAnalogSensor",
+			"speedGPS", "courseGPS", "numSatsGPS", "hdopGPS", "boardTemperatureAnalogSensor", 
+			"externalTemperatureAnalogSensor", "internalTemperatureAnalogSensor", "externalHumidityAnalogSensor", "differentialPressureAnalogSensor", "xAccelerationAnalogSensor",
 			"yAccelerationAnalogSensor", "zAccelerationAnalogSensor", "visibleLuminosityAnalogSensor","irLuminosityAnalogSensor",
 			"batteryTemperatureAnalogSensor", "headingPseudoAnalogSensor", "batteryVoltageAnalogSensor" 
 		};
 
 	public final static String[] FRAME_TOKENS_REGEX = 
 		{ 
-			null, "\\d{1,5}", "\\d{1,5}", "\\d{1,5}", "\\d{6}", 
-			"\\d{6}", "V|A", "(-)?\\d{1,5}.\\d{3}", "(-)?\\d{1,4}.\\d{3}", "(-)?\\d{1,5}.\\d{1}", 
-			"\\d{1,3}.\\d{1}", "\\d{1,3}.\\d{1}", "\\d{1,2}", "\\d{1,3}.\\d{1}", "\\d{1,4}", 
-			"\\d{1,5}", "\\d{1,5}", "\\d{1,5}", "\\d{1,4}", "\\d{1,4}", 
-			"\\d{1,4}", "\\d{1,4}", "\\d{1,5}", "\\d{1,5}", 
-			"\\d{1,4}", "\\d{1,4}", "\\d{1,4}"
+			null, 						// objectName
+			"\\d{1,5}", 				// frameCounter
+			"\\d{1,5}", 				// resetCounter 
+			"\\d{1,5}", 				// secondsSinceLastReset 
+			"\\d{6}", 					// timeRTC
+			"\\d{6}", 					// timeGPS	 
+			"V|A", 						// fixGPS 
+			"(-)?\\d{1,5}.\\d{3}", 		// longGPS
+			"(-)?\\d{1,4}.\\d{3}", 		// latGPS
+			"(-)?\\d{1,5}.\\d{1}", 		// altGPS 
+			"\\d{1,3}.\\d{1}", 			// speedGPS
+			"\\d{1,3}.\\d{1}", 			// courseGPS
+			"\\d{1,2}", 				// numSatsGPS
+			"\\d{1,3}.\\d{1}", 			// hdopGPS
+			"\\d{1,4}", 				// boardTemperatureAnalogSensor
+			"(-)?\\d{1,5}", 			// externalTemperatureAnalogSensor
+			"(-)?\\d{1,5}", 			// internalTemperatureAnalogSensor
+			"(-)?\\d{1,5}", 			// externalHumidityAnalogSensor
+			"\\d{1,4}", 				// differentialPressureAnalogSensor 
+			"\\d{1,4}", 				// xAccelerationAnalogSensor
+			"\\d{1,4}", 				// yAccelerationAnalogSensor
+			"\\d{1,4}", 				// zAccelerationAnalogSensor
+			"(-)?\\d{1,5}",				// visibleLuminosityAnalogSensor
+			"(-)?\\d{1,5}",				// irLuminosityAnalogSensor
+			"\\d{1,4}",					// batteryTemperatureAnalogSensor
+			"\\d{1,4}",					// headingPseudoAnalogSensor 
+			"\\d{1,4}"					// batteryVoltageAnalogSensor
 		};
 
 	private final byte[] rawFrame;
