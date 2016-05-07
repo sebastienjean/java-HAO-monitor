@@ -9,18 +9,19 @@ import fr.iutvalence.hao.monitor.core.exceptions.MalformedFrameException;
 public class UBPE2016Data implements Serializable
 {
 
-	// #HAO_2016,1182,32,1045,170404,150407,A,457.328,4458.061,169.0,1.2,208.0,5,2.3,829,29736,29826,-497,38,-32158,-32161,242,290
+	// #HAO_2016,1182,32,1045,170404,2,150407,A,457.328,4458.061,169.0,1.2,208.0,5,2.3,829,29736,29826,-497,38,-32158,-32161,242,290, 1600
 
 	public final static String FRAME_TOKENS_SEPARATOR = ",";
 
 	public final static String[] FRAME_TOKENS_NAMES = 
 		{ 
-			"objectName", "frameCounter", "resetCounter", "secondsSinceLastReset", "timeRTC", 
-			"timeGPS", "fixGPS", "longGPS", "latGPS", "altGPS", 
+			"objectName", "frameCounter", "resetCounter", "secondsSinceLastReset", "bestGPS",
+			"timeRTC", "timeGPS", "fixGPS", "longGPS", "latGPS", "altGPS", 
 			"speedGPS", "courseGPS", "numSatsGPS", "hdopGPS", "boardTemperatureAnalogSensor", 
-			"externalTemperatureAnalogSensor", "internalTemperatureAnalogSensor", "externalHumidityAnalogSensor", "differentialPressureAnalogSensor", 
+			"externalTemperatureAnalogSensor", "internalTemperatureAnalogSensor", 
+			"externalHumidityAnalogSensor", "differentialPressureAnalogSensor", 
 			"visibleLuminosityAnalogSensor","irLuminosityAnalogSensor",
-			"batteryTemperatureAnalogSensor", "batteryVoltageAnalogSensor" 
+			"batteryTemperatureAnalogSensor", "batteryVoltageAnalogSensor", "distancePseudoAnalogSensor"
 		};
 
 	public final static String[] FRAME_TOKENS_REGEX = 
@@ -30,6 +31,7 @@ public class UBPE2016Data implements Serializable
 			"\\d{1,5}", 				// resetCounter 
 			"\\d{1,5}", 				// secondsSinceLastReset 
 			"\\d{6}", 					// timeRTC
+			"\\d{1,5}", 				// bestGPS
 			"\\d{6}", 					// timeGPS	 
 			"V|A", 						// fixGPS 
 			"(-)?\\d{1,5}.\\d{3}", 		// longGPS
@@ -47,7 +49,8 @@ public class UBPE2016Data implements Serializable
 			"(-)?\\d{1,5}",				// visibleLuminosityAnalogSensor
 			"(-)?\\d{1,5}",				// irLuminosityAnalogSensor
 			"\\d{1,4}",					// batteryTemperatureAnalogSensor
-			"\\d{1,4}"					// batteryVoltageAnalogSensor
+			"\\d{1,4}",					// batteryVoltageAnalogSensor
+			"\\d{1,5}"	 				// distancePseudoAnalogSensor
 		};
 
 	private final byte[] rawFrame;
@@ -56,11 +59,11 @@ public class UBPE2016Data implements Serializable
 
 	/*
 	 * objectName, frameCounter, resetCounter, secondsSinceLastReset, timeRTC, 
-	 * timeGPS, fixGPS, longGPS, latGPS, altGPS,
+	 * bestGPS, timeGPS, fixGPS, longGPS, latGPS, altGPS,
 	 * speedGPS, courseGPS, numSatsGPS, hdopGPS, internalTemperatureAnalogSensor, 
 	 * externalTemperatureAnalogSensor, middleTemperatureAnalogSensor, externalHumidityAnalogSensor, differentialPressureAnalogSensor,  
 	 * visibleLuminosityAnalogSensor,irLuminosityAnalogSensor,
-	 * batteryTemperatureAnalogSensor, batteryVoltageAnalogSensor 
+	 * batteryTemperatureAnalogSensor, batteryVoltageAnalogSensor, distancePseudoAnalogSensor
 	 */
 	public UBPE2016Data(byte[] ubpeFrame) throws MalformedFrameException
 	{
