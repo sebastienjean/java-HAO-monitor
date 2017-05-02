@@ -1,1 +1,1 @@
-java -jar webFrontEnd2017.jar 192.168.1.48 6969 /var/www/html/data/events 5
+java -jar webFrontEnd2017.jar 193.51.172.2 6969 /var/www/html/data/events 5
